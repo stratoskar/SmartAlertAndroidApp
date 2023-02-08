@@ -121,7 +121,7 @@
             android:id="@+id/textView"
             android:layout_width="156dp"
             android:layout_height="40dp"
-            android:layout_marginTop="136dp"
+            android:layout_marginTop="100dp"
             android:fontFamily="@font/roboto_bold"
             android:text="Login"
             android:textAlignment="center"
