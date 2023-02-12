@@ -35,7 +35,7 @@
             app:layout_constraintVertical_bias="0.155" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/logo"
             android:layout_width="238dp"
             android:layout_height="79dp"
             android:layout_marginTop="84dp"
@@ -50,7 +50,7 @@
             android:layout_width="45dp"
             android:layout_height="24dp"
             android:layout_marginTop="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView"
+            app:layout_constraintBottom_toTopOf="@+id/logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.825"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +63,7 @@
             android:layout_width="45dp"
             android:layout_height="24dp"
             android:layout_marginTop="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView"
+            app:layout_constraintBottom_toTopOf="@+id/logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.948"
             app:layout_constraintStart_toStartOf="parent"
@@ -131,12 +131,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/logo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/logo"
         android:layout_width="238dp"
         android:layout_height="79dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -145,7 +145,7 @@
         tools:layout_editor_absoluteY="84dp" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/edit_password"
         android:layout_width="298dp"
         android:layout_height="27dp"
         android:width="298dp"
@@ -164,7 +164,7 @@
         tools:layout_editor_absoluteY="520dp" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName5"
+        android:id="@+id/edit_3"
         android:layout_width="298dp"
         android:layout_height="27dp"
         android:width="298dp"
