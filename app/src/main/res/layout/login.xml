@@ -35,40 +35,25 @@
             app:layout_constraintVertical_bias="0.155" />
 
         <ImageView
-            android:id="@+id/logo"
-            android:layout_width="238dp"
-            android:layout_height="79dp"
-            android:layout_marginTop="84dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/_12" />
-
-        <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/greek_flag"
             android:layout_width="45dp"
             android:layout_height="24dp"
             android:layout_marginTop="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.825"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/greece" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/english_flag"
             android:layout_width="45dp"
             android:layout_height="24dp"
             android:layout_marginTop="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.948"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/united_kingdom__1_" />
 
         <TextView
@@ -123,7 +108,7 @@
             android:id="@+id/textView"
             android:layout_width="156dp"
             android:layout_height="40dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="96dp"
             android:fontFamily="@font/roboto_bold"
             android:text="Login"
             android:textAlignment="center"
@@ -151,7 +136,8 @@
             android:textColor="#FFFFFF"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/button"
-            tools:layout_editor_absoluteX="56dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/edit_password2"
@@ -168,18 +154,21 @@
             android:textAlignment="viewStart"
             android:textColor="#FFFFFF"
             android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
-            tools:layout_editor_absoluteX="56dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="238dp"
+            android:layout_height="79dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/greek_flag"
+            app:srcCompat="@drawable/_12" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="238dp"
-        android:layout_height="79dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/_12"
-        tools:layout_editor_absoluteY="84dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
