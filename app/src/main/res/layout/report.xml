@@ -12,7 +12,7 @@
     <Button
         android:id="@+id/report_incident"
         android:layout_width="248dp"
-        android:layout_height="44dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="60dp"
         android:width="248dp"
         android:backgroundTint="#000000"
@@ -26,7 +26,7 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/report"
+        android:id="@+id/description"
         android:layout_width="112dp"
         android:layout_height="19dp"
         android:layout_marginBottom="8dp"
@@ -36,7 +36,7 @@
         android:textColor="#FFFFFF"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/enter_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.27"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,60 +53,67 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
-            android:id="@+id/strong_wind"
+            android:id="@+id/fire"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Fire"
             android:textColor="@color/white"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            tools:ignore="TextSizeCheck" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/flood"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Flood"
             android:textColor="@color/white"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            tools:ignore="TextSizeCheck" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/earthquake"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Earthquake"
             android:textColor="@color/white"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            tools:ignore="TextSizeCheck" />
 
         <RadioButton
-            android:id="@+id/radioButton4"
+            android:id="@+id/strongwind"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Strong wind"
+            android:text="Strong Wind"
             android:textColor="@color/white"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            tools:ignore="TextSizeCheck" />
 
     </RadioGroup>
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/enter_description"
         android:layout_width="248dp"
-        android:layout_height="31dp"
-        android:layout_marginBottom="56dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="60dp"
         android:backgroundTint="#FFFFFF"
         android:editable="true"
         android:ems="10"
         android:fontFamily="@font/roboto"
+        android:hint="@string/please_describe_the_insident"
         android:inputType="textPersonName"
         android:textAlignment="viewStart"
         android:textColor="@color/white"
+        android:textColorHint="#AEFFFFFF"
         android:textSize="15dp"
         android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/description"
+        app:layout_constraintBottom_toTopOf="@+id/typeofalert"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TextSizeCheck" />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/typeofalert"
         android:layout_width="109dp"
         android:layout_height="19dp"
         android:layout_marginBottom="12dp"
@@ -132,7 +139,7 @@
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/report"
+        app:layout_constraintBottom_toTopOf="@+id/description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

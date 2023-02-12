@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SmartAlert</string>
+    <string name="please_describe_the_insident">Please, describe the insident.</string>
 </resources>

@@ -43,7 +43,7 @@
         android:fontFamily="@font/roboto"
         android:text="Please, choose an option:"
         android:textAlignment="textStart"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="15sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toTopOf="@+id/button5"
