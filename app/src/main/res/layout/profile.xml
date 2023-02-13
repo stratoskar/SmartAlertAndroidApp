@@ -9,12 +9,12 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/report"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:width="250dp"
-        android:onClick="delete_POI"
+        android:onClick="report_alert"
         android:text="Report an incident"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/button4"
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="44dp"
         android:width="250dp"
-        android:onClick="view_all"
+        android:onClick="view_alerts"
         android:text="View all alerts"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +46,7 @@
         android:textColor="@color/white"
         android:textSize="15sp"
         android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintBottom_toTopOf="@+id/report"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent" />
