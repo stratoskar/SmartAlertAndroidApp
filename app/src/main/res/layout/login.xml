@@ -41,7 +41,7 @@
         app:layout_constraintVertical_bias="0.022" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/LabelLogin"
         android:layout_width="156dp"
         android:layout_height="40dp"
         android:layout_marginTop="100dp"
@@ -57,22 +57,22 @@
         app:layout_constraintTop_toBottomOf="@+id/logo" />
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/LabelEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:width="73dp"
         android:fontFamily="@font/roboto"
-        android:text="Username:"
+        android:text="E-Mail:"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.153"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/LabelLogin" />
 
     <EditText
-        android:id="@+id/insert_username"
+        android:id="@+id/EditTextEmail"
         android:layout_width="298dp"
         android:layout_height="48dp"
         android:layout_marginTop="12dp"
@@ -81,8 +81,8 @@
         android:editable="true"
         android:ems="10"
         android:fontFamily="@font/roboto"
-        android:hint="Please, insert your username."
-        android:inputType="textPersonName"
+        android:hint="Please, insert your E-Mail."
+        android:inputType="textEmailAddress"
         android:singleLine="true"
         android:textAlignment="viewStart"
         android:textColor="#FFFFFF"
@@ -91,10 +91,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/LabelEmail" />
 
     <TextView
-        android:id="@+id/password"
+        android:id="@+id/LabelPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
@@ -106,10 +106,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.153"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/insert_username" />
+        app:layout_constraintTop_toBottomOf="@+id/EditTextEmail" />
 
     <EditText
-        android:id="@+id/insert_password"
+        android:id="@+id/EditTextPassword"
         android:layout_width="298dp"
         android:layout_height="48dp"
         android:layout_marginTop="12dp"
@@ -119,7 +119,7 @@
         android:ems="10"
         android:fontFamily="@font/roboto"
         android:hint="Please, insert your password."
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:singleLine="true"
         android:textAlignment="viewStart"
         android:textColor="#FFFFFF"
@@ -128,10 +128,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/LabelPassword" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/ButtonLogin"
         android:layout_width="298dp"
         android:layout_height="48dp"
         android:layout_marginTop="40dp"
@@ -144,10 +144,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/insert_password" />
+        app:layout_constraintTop_toBottomOf="@+id/EditTextPassword" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/LabelRegister"
         android:layout_width="284dp"
         android:layout_height="16dp"
         android:clickable="true"
@@ -161,6 +161,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/ButtonLogin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
