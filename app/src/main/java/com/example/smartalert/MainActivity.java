@@ -43,6 +43,26 @@ public class MainActivity extends AppCompatActivity
     // Login button
     public void Login(View view)
     {
+        boolean skip = false;
+
+        // the email field is required.
+        if (email.getText().toString().trim().isEmpty())
+        {
+            email.setError("An E-Mail is required!");
+            skip = true;
+        }
+
+        // so is the password.
+        if (password.getText().toString().trim().isEmpty())
+        {
+            password.setError("Your Password is required!");
+            skip = true;
+        }
+
+        // and if at least one of them is empty, don't continue.
+        if (skip) return;
+
+        // otherwise try to login.
         SmartAlertAPIHandler.getInstance(this).Login(email.getText().toString(), password.getText().toString(), this);
     }
 
