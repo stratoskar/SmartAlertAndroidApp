@@ -6,22 +6,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class Register extends AppCompatActivity {
+public class Register extends AppCompatActivity
+{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
     }
 
     // Register button
-    public void register(View view){
+    public void register(View view)
+    {
         Intent intent = new Intent(this,User_Profile.class);
         startActivity(intent);
     }
 
     // Go to login page, if user has an account already
-    public void go_to_login(View view){
+    public void go_to_login(View view)
+    {
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }

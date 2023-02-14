@@ -80,13 +80,13 @@
         android:layout_marginTop="28dp"
         android:width="73dp"
         android:fontFamily="@font/roboto"
-        android:text="Enter username:"
+        android:text="Enter E-Mail address:"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.185"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enter_fullname" />
+        app:layout_constraintTop_toBottomOf="@+id/EditTextFullName_REGISTER" />
 
     <TextView
         android:id="@+id/LabelPassword"
@@ -101,10 +101,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.185"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enter_username" />
+        app:layout_constraintTop_toBottomOf="@+id/EditTextEmail_REGISTER" />
 
     <EditText
-        android:id="@+id/enter_fullname"
+        android:id="@+id/EditTextFullName_REGISTER"
         android:layout_width="298dp"
         android:layout_height="48dp"
         android:layout_marginTop="12dp"
@@ -126,7 +126,7 @@
         app:layout_constraintTop_toBottomOf="@+id/fullname" />
 
     <EditText
-        android:id="@+id/enter_username"
+        android:id="@+id/EditTextEmail_REGISTER"
         android:layout_width="298dp"
         android:layout_height="48dp"
         android:layout_marginTop="12dp"
@@ -135,8 +135,8 @@
         android:editable="true"
         android:ems="10"
         android:fontFamily="@font/roboto"
-        android:hint="Please, insert your full name."
-        android:inputType="textPersonName"
+        android:hint="Please, insert your E-Mail address."
+        android:inputType="textEmailAddress"
         android:singleLine="true"
         android:textAlignment="viewStart"
         android:textColor="#FFFFFF"
@@ -147,7 +147,7 @@
         app:layout_constraintTop_toBottomOf="@+id/LabelEmail" />
 
     <EditText
-        android:id="@+id/enter_password"
+        android:id="@+id/EditTextPassword_REGISTER"
         android:layout_width="298dp"
         android:layout_height="48dp"
         android:layout_marginTop="12dp"
@@ -156,8 +156,8 @@
         android:editable="true"
         android:ems="10"
         android:fontFamily="@font/roboto"
-        android:hint="Please, insert your full name."
-        android:inputType="textPersonName"
+        android:hint="Please, insert your password."
+        android:inputType="textPassword"
         android:singleLine="true"
         android:textAlignment="viewStart"
         android:textColor="#FFFFFF"
@@ -181,7 +181,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enter_password" />
+        app:layout_constraintTop_toBottomOf="@+id/EditTextPassword_REGISTER" />
 
     <TextView
         android:id="@+id/LabelRegister"
