@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="please_describe_the_insident">Παρακαλώ, περιγράψτε το περιστατικό</string>
+    <string name="label_login">Σύνδεση</string>
+    <string name="label_email">Ηλεκτρονική Διεύθυνση (E-Mail):</string>
+    <string name="label_password">Κωδικός:</string>
+    <string name="edit_text_email_hint">Παρακαλώ, γράψτε το E-Mail σας.</string>
+    <string name="edit_text_password_hint">Παρακαλώ, γράψτε τον κωδικό σας.</string>
+    <string name="label_no_account_register">Δεν έχετε λογαριασμό; Φτιάξτε εδώ.</string>
+</resources>
