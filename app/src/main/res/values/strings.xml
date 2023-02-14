@@ -7,4 +7,7 @@
     <string name="edit_text_email_hint">Please, insert your E-Mail.</string>
     <string name="edit_text_password_hint">Please, insert your password.</string>
     <string name="label_no_account_register">Don\'t have an account? Create now.</string>
+    <string name="report">Report</string>
+    <string name="view_alerts">View Alerts</string>
+    <string name="logout">Logout</string>
 </resources>
