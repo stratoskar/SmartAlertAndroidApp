@@ -40,11 +40,6 @@ public class SmartAlertAPIHandler
         return instance;
     }
 
-    public boolean isLoggedin()
-    {
-        return _token != null;
-    }
-
     public void Login(String email, String password, Activity activity)
     {
         // URL ENDPOINT. Here is all the backend magic. This is where we retrieve all users and alerts.
