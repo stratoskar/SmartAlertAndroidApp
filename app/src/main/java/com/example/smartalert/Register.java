@@ -19,8 +19,7 @@ public class Register extends AppCompatActivity
     // Register button
     public void register(View view)
     {
-        Intent intent = new Intent(this,User_Profile.class);
-        startActivity(intent);
+
     }
 
     // Go to login page, if user has an account already
