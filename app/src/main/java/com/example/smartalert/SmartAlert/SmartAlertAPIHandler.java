@@ -81,6 +81,12 @@ public class SmartAlertAPIHandler
             @Override
             public void onErrorResponse(VolleyError error)
             {
+                if (error == null)
+                {
+                    Toast.makeText(activity, activity.getString(R.string.toast_unexpected_error), Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 // individual wrong cases.
                 switch (error.networkResponse.statusCode)
                 {
