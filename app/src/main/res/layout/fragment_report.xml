@@ -1,36 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background3"
+    android:background="@drawable/background5"
     tools:context=".fragment_report">
 
-    <Button
-        android:id="@+id/report_incident"
-        android:layout_width="248dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="60dp"
-        android:width="248dp"
-        android:backgroundTint="#000000"
-        android:text="Report incident"
-        android:textColor="#ffffff"
-        android:textSize="15sp"
-        tools:ignore="MissingConstraints" />
+    <TextView
+        android:id="@+id/textview_reportIncident"
+        android:layout_width="200dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Report an incident"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.26"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/textview_description"
         android:layout_width="112dp"
         android:layout_height="19dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="48dp"
         android:width="73dp"
         android:fontFamily="@font/roboto"
         android:text="Description:"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
         android:textStyle="bold"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.187"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/typeofalert3"/>
 
+    <RadioGroup
+        android:id="@+id/radio_radioGroup"
+        android:layout_width="305dp"
+        android:layout_height="165dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="49dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_additionall_text">
 
+        <RadioButton
+            android:id="@+id/radio_fire"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:shadowColor="#f2b8b5"
+            android:text="Fire"
+            android:textColor="@color/white"
+            android:textColorHighlight="#F2B8B5"
+            android:textSize="15dp"
+            tools:ignore="TextSizeCheck,TouchTargetSizeCheck" />
 
-</FrameLayout>
+        <RadioButton
+            android:id="@+id/radio_flood"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:shadowColor="#f2b8b5"
+            android:text="Flood"
+            android:textColor="@color/white"
+            android:textColorHighlight="#F2B8B5"
+            android:textSize="15dp"
+            tools:ignore="TextSizeCheck,TouchTargetSizeCheck" />
+
+        <RadioButton
+            android:id="@+id/radio_earthquake"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:shadowColor="#f2b8b5"
+            android:text="Earthquake"
+            android:textColor="@color/white"
+            android:textColorHighlight="#F2B8B5"
+            android:textSize="15dp"
+            tools:ignore="TextSizeCheck,TouchTargetSizeCheck" />
+
+        <RadioButton
+            android:id="@+id/radio_strong_wind"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:shadowColor="#f2b8b5"
+            android:text="Strong Wind"
+            android:textColor="@color/white"
+            android:textColorHighlight="#F2B8B5"
+            android:textSize="15dp"
+            tools:ignore="TextSizeCheck,TouchTargetSizeCheck" />
+
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/editText_enter_description"
+        android:layout_width="300dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#FFFFFF"
+        android:editable="true"
+        android:ems="10"
+        android:fontFamily="@font/roboto"
+        android:hint="@string/please_describe_the_insident"
+        android:inputType="textPersonName"
+        android:textAlignment="viewStart"
+        android:textColor="@color/white"
+        android:textColorHint="#AEFFFFFF"
+        android:textSize="15dp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_description"
+        tools:ignore="TextSizeCheck,TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/textview_additionall_text"
+        android:layout_width="109dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="246dp"
+        android:width="73dp"
+        android:fontFamily="@font/roboto"
+        android:text="Type of alert:"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_enter_description" />
+
+    <TextView
+        android:id="@+id/typeofalert3"
+        android:layout_width="300dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="57dp"
+        android:width="73dp"
+        android:fontFamily="@font/roboto"
+        android:text="Please, give us information about the natural disaster."
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_reportIncident" />
+
+    <TextView
+        android:id="@+id/text_view_upload_photo"
+        android:layout_width="191dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="122dp"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="123dp"
+        android:width="73dp"
+        android:clickable="true"
+        android:fontFamily="@font/roboto"
+        android:text="📷 - Upload Additional File"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:flow_horizontalAlign="center"
+        app:flow_verticalAlign="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radio_radioGroup" />
+
+    <Button
+        android:id="@+id/button_report"
+        android:layout_width="248dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="82dp"
+        android:layout_marginBottom="45dp"
+        android:width="248dp"
+        android:backgroundTint="#7d5260"
+        android:text="Report incident"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_upload_photo" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

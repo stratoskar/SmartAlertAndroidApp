@@ -27,7 +27,7 @@ public class ViewAlerts extends AppCompatActivity implements BottomNavigationVie
                 fragment = new fragment_report();
                 break;
             case R.id.logout:
-                Intent intent = new Intent(this,MainActivity.class);
+                Intent intent = new Intent(this,login.class);
                 startActivity(intent);
                 break;
             case R.id.alerts:
