@@ -137,7 +137,7 @@
         android:layout_marginTop="40dp"
         android:width="298dp"
         android:backgroundTint="#7D5260"
-        android:onClick="Login"
+        android:onClick="hidden"
         android:text="@string/label_login"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
@@ -162,5 +162,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ButtonLogin" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="105dp"
+        android:layout_height="33dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

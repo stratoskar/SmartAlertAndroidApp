@@ -29,11 +29,11 @@
             android:exported="false">
         </activity>
         <activity
-            android:name=".Report_Alert"
+            android:name=".test"
             android:exported="false">
         </activity>
         <activity
-            android:name=".Summary"
+            android:name=".Report_Alert"
             android:exported="false">
         </activity>
         <meta-data
