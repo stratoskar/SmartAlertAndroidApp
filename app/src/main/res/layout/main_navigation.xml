@@ -7,9 +7,9 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/relativelayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/relativelayout"
         android:layout_marginBottom="65dp"
         android:padding="5dp">
 
@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:backgroundTint="#7D5260"
+        app:itemHorizontalTranslationEnabled="false"
         app:menu="@menu/bottom_nav_menu">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>

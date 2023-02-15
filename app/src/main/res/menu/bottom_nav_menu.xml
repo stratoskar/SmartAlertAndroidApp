@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/report_incident"
-        android:title="@string/report"
-        android:icon="@drawable/baseline_add_alert_24"/>
-    <item
         android:id="@+id/alerts"
         android:title="@string/view_alerts"
         android:icon="@drawable/baseline_crisis_alert_24"/>
+    <item
+        android:id="@+id/report_incident"
+        android:title="@string/report"
+        android:icon="@drawable/baseline_add_alert_24"/>
     <item
         android:id="@+id/logout"
         android:title="@string/logout"
