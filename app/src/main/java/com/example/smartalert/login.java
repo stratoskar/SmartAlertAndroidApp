@@ -76,4 +76,11 @@ public class login extends AppCompatActivity
         Intent intent = new Intent(this,Register.class);
         startActivity(intent);
     }
+
+    // code to be deleted
+    public void hid(View view)
+    {
+    Intent intent = new Intent(this,ViewAlerts.class);
+    startActivity(intent);
+    }
 }

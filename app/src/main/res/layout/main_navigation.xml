@@ -14,12 +14,14 @@
         android:padding="5dp">
 
     </RelativeLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottonnav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/bottom_nav_menu"
         android:layout_alignParentBottom="true"
-        android:id="@+id/bottonnav">
+        app:itemBackground="@drawable/background5"
+        app:menu="@menu/bottom_nav_menu">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 </RelativeLayout>
