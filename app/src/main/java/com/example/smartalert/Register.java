@@ -61,7 +61,7 @@ public class Register extends AppCompatActivity
     // Go to login page, if user has an account already
     public void go_to_login(View view)
     {
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this,login.class);
         startActivity(intent);
     }
 }

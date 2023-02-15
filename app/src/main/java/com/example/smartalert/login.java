@@ -1,34 +1,19 @@
 package com.example.smartalert;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.os.LocaleListCompat;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.smartalert.SmartAlert.SmartAlertAPIHandler;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
-public class MainActivity extends AppCompatActivity
+public class login extends AppCompatActivity
 {
     EditText email;
     EditText password;
@@ -90,5 +75,12 @@ public class MainActivity extends AppCompatActivity
     {
         Intent intent = new Intent(this,Register.class);
         startActivity(intent);
+    }
+
+    // code to be deleted
+    public void hid(View view)
+    {
+    Intent intent = new Intent(this,ViewAlerts.class);
+    startActivity(intent);
     }
 }
