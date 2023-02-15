@@ -6,14 +6,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.smartalert.SmartAlert.SmartAlertAPIHandler;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Register extends AppCompatActivity
 {
     EditText email;
     EditText password;
     EditText name;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -24,6 +28,8 @@ public class Register extends AppCompatActivity
         email = findViewById(R.id.EditTextEmail_REGISTER);
         password = findViewById(R.id.EditTextPassword_REGISTER);
         name = findViewById(R.id.EditTextFullName_REGISTER);
+
+        mAuth = FirebaseAuth.getInstance();
     }
 
     // Register button

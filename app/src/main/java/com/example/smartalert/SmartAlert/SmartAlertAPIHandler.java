@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -13,6 +15,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.smartalert.R;
 import com.example.smartalert.ViewAlerts;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.SuccessContinuation;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 
 import org.json.JSONObject;
 
@@ -20,14 +28,17 @@ import java.util.HashMap;
 
 public class SmartAlertAPIHandler
 {
-    private static final String URL = "http://192.168.1.92:3000";
+    private static final String URL = "";
     private String _token;
     private static SmartAlertAPIHandler instance;
     private final RequestQueue requestQueue;
+    private final FirebaseAuth mAuth;
+    private FirebaseUser User;
 
     private SmartAlertAPIHandler(Context context)
     {
         requestQueue = Volley.newRequestQueue(context.getApplicationContext());
+        mAuth = FirebaseAuth.getInstance();
     }
 
     /**
@@ -145,7 +156,37 @@ public class SmartAlertAPIHandler
      */
     public void Login(String email, String password, Activity activity)
     {
-        AccountHandle(true, activity, email, password);
+        // sign in the user using email and password.
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(activity, task ->
+                {
+                    // if the user successfully logs in
+                    if (task.isSuccessful())
+                    {
+                        // save the User object.
+                        User = mAuth.getCurrentUser();
+
+                        // get the user's token.
+                        User.getIdToken(false).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<GetTokenResult> task)
+                            {
+                                _token = task.getResult().getToken();
+                            }
+                        });
+
+                        // redirect to the new Activity.
+                        Intent intent = new Intent(activity, ViewAlerts.class);
+                        activity.startActivity(intent);
+                        activity.finish();
+                    }
+
+                    // otherwise, some error might have occurred.
+                    else
+                    {
+                        // inform the user accordingly.
+                        Toast.makeText(activity, activity.getString(R.string.toast_wrong_credentials), Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
     /**
@@ -161,6 +202,28 @@ public class SmartAlertAPIHandler
      */
     public void Signup(String email, String password, String name, Activity activity)
     {
-        AccountHandle(false, activity, email, password, name);
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(activity, task ->
+        {
+            if (task.isSuccessful())
+            {
+                User = mAuth.getCurrentUser();
+
+                User.getIdToken(false).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<GetTokenResult> task)
+                    {
+                        _token = task.getResult().getToken();
+                    }
+                });
+
+                Intent intent = new Intent(activity, ViewAlerts.class);
+                activity.startActivity(intent);
+                activity.finish();
+            }
+            else
+            {
+                Toast.makeText(activity, activity.getString(R.string.toast_wrong_credentials), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
