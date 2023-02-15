@@ -3,19 +3,17 @@ package com.example.smartalert;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class test extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class ViewAlerts extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test);
+        setContentView(R.layout.main_navigation);
         bottomNavigationView = findViewById(R.id.bottonnav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         loadFragment(new fragment_alerts());

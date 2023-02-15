@@ -91,11 +91,4 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(this,Register.class);
         startActivity(intent);
     }
-
-    // test code (to be deleted)
-    public void hidden(View view)
-    {
-        Intent intent = new Intent(this,test.class);
-        startActivity(intent);
-    }
 }

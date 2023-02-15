@@ -26,21 +26,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".User_Profile"
-            android:exported="false">
-        </activity>
-        <activity
             android:name=".Register"
             android:exported="false">
         </activity>
         <activity
-            android:name=".test"
+            android:name=".ViewAlerts"
             android:exported="false">
         </activity>
-        <activity
-            android:name=".Report_Alert"
-            android:exported="false">
-        </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

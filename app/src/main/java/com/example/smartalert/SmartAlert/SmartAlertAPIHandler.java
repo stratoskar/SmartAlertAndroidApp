@@ -5,17 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.smartalert.MainActivity;
 import com.example.smartalert.R;
-import com.example.smartalert.User_Profile;
+import com.example.smartalert.ViewAlerts;
 
 import org.json.JSONObject;
 
@@ -69,7 +66,7 @@ public class SmartAlertAPIHandler
                             _token = jsonResponse.getString("auth_token");
 
                             // and start the new activity.
-                            Intent intent = new Intent(activity, User_Profile.class);
+                            Intent intent = new Intent(activity, ViewAlerts.class);
                             activity.startActivity(intent);
                             activity.finish();
                         }

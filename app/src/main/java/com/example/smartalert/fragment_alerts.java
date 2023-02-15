@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-class fragment_alerts extends Fragment {
+public class fragment_alerts extends Fragment {
 
     @Nullable
     @Override
