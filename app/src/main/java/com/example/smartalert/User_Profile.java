@@ -6,21 +6,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.smartalert.SmartAlert.SmartAlertAPIHandler;
+
 public class User_Profile extends AppCompatActivity
 {
-    private static String auth_token;
-
-    public static void setAuth_token(String token)
-    {
-        auth_token = token;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
-        System.out.println(auth_token);
+
+
     }
 
     // Report a case button
