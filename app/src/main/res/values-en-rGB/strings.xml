@@ -7,4 +7,12 @@
     <string name="edit_text_email_hint">Please, insert your E-Mail.</string>
     <string name="edit_text_password_hint">Please, insert your password.</string>
     <string name="label_no_account_register">Don\'t have an account? Create now.</string>
+    <string name="toast_wrong_credentials">Wrong E-Mail and/or Password.</string>
+    <string name="toast_email_already_taken">This E-Mail is already taken from another user.</string>
+    <string name="toast_internal_server_error">An internal server error occurred.</string>
+    <string name="toast_unexpected_error">An unexpected error has occurred.</string>
+    <string name="label_register">Register</string>
+    <string name="warning_email">An E-Mail can\'t be empty.</string>
+    <string name="warning_password">Please provide your password.</string>
+    <string name="warning_name">Please enter your full name.</string>
 </resources>

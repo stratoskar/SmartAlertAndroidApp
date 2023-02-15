@@ -7,4 +7,12 @@
     <string name="edit_text_email_hint">Παρακαλώ, γράψτε το E-Mail σας.</string>
     <string name="edit_text_password_hint">Παρακαλώ, γράψτε τον κωδικό σας.</string>
     <string name="label_no_account_register">Δεν έχετε λογαριασμό; Φτιάξτε εδώ.</string>
+    <string name="toast_wrong_credentials">Λάθος E-Mail ή/και κωδικός.</string>
+    <string name="toast_email_already_taken">Αυτό το E-Mail ήδη χρησιμοποιείται.</string>
+    <string name="toast_internal_server_error">Υπήρξε ένα πρόβλημα με τον server.</string>
+    <string name="toast_unexpected_error">Υπήρξε ένα απρόσμενο πρόβλημα.</string>
+    <string name="label_register">Εγγραφή</string>
+    <string name="warning_email">Το E-Mail δεν μπορεί να είναι κενό.</string>
+    <string name="warning_password">Παρακαλώ, εισάγετε κωδικό.</string>
+    <string name="warning_name">Παρακαλώ, δώστε το ονοματεπώνυμό σας.</string>
 </resources>

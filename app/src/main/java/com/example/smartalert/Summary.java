@@ -12,7 +12,7 @@ public class Summary extends Activity {
     @Override   protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);      setContentView(R.layout.summary);
         simpleList = (ListView)findViewById(R.id.simpleListView);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.LabelLogin, countryList);
-        simpleList.setAdapter(arrayAdapter);
+        //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.LabelLogin, countryList);
+        //simpleList.setAdapter(arrayAdapter);
     }
 }
