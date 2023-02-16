@@ -52,6 +52,9 @@ public class login extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
+        // hide action support bar
+        getSupportActionBar().hide();
+
         // set variables for the view
         email = findViewById(R.id.EditTextEmail);
         password = findViewById(R.id.EditTextPassword);
