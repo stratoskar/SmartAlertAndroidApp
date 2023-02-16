@@ -163,18 +163,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ButtonLogin" />
 
-    <Button
-        android:id="@+id/button"
+    <ProgressBar
+        android:id="@+id/ProgressBar_LOGIN"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="323dp"
-        android:layout_marginBottom="141dp"
-        android:onClick="hid"
-        android:text="Button"
-        app:layout_constraintBottom_toTopOf="@+id/LabelEmail"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginBottom="274dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/EditTextEmail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/logo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

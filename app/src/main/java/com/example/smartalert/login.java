@@ -15,6 +15,7 @@ import com.example.smartalert.SmartAlert.SmartAlertAPIHandler;
 import java.util.Locale;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
@@ -41,17 +42,22 @@ public class login extends AppCompatActivity
 {
     EditText email;
     EditText password;
-
+    ProgressBar progressBar;
     FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        // start activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
+        // set variables for the view
         email = findViewById(R.id.EditTextEmail);
         password = findViewById(R.id.EditTextPassword);
+        progressBar = findViewById(R.id.ProgressBar_LOGIN);
+
+        // FirebaseAuth singleton
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -79,7 +85,18 @@ public class login extends AppCompatActivity
         if (skip) return;
 
         // otherwise try to login.
-        SmartAlertAPIHandler.getInstance(this).Login(email.getText().toString(), password.getText().toString(), this);
+        SmartAlertAPIHandler.getInstance(this).Login(email.getText().toString(), password.getText().toString(), this, progressBar);
+
+        // Set the progress bar to be active.
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+
+    // Go to register page, if user does not have an account already
+    public void go_to_register(View view)
+    {
+        Intent intent = new Intent(this,Register.class);
+        startActivity(intent);
     }
 
     public void ChangeLocale(View view)
@@ -98,17 +115,5 @@ public class login extends AppCompatActivity
     }
 
 
-    // Go to register page, if user does not have an account already
-    public void go_to_register(View view)
-    {
-        Intent intent = new Intent(this,Register.class);
-        startActivity(intent);
-    }
 
-    // code to be deleted
-    public void hid(View view)
-    {
-    Intent intent = new Intent(this,ViewAlerts.class);
-    startActivity(intent);
-    }
 }

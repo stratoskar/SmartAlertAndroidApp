@@ -3,6 +3,8 @@ package com.example.smartalert.SmartAlert;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,6 +28,13 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+/**
+ * <h1>Handles all API Requests.</h1>
+ *
+ * All the magic for logging Users in and out, retrieving alerts and handling settings are done here.
+ * This class sends GET and POST http requests to the registered {@link FirebaseAuth} API and to another
+ * SmartAlert API made by the team.
+ */
 public class SmartAlertAPIHandler
 {
     private static final String URL = "";
@@ -154,7 +163,7 @@ public class SmartAlertAPIHandler
      * @param password A password is provided by the User through {@link android.widget.EditText} and securely stored in the database.
      * @param activity The {@link Context} that called this function.
      */
-    public void Login(String email, String password, Activity activity)
+    public void Login(String email, String password, Activity activity, ProgressBar progressBar)
     {
         // sign in the user using email and password.
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(activity, task ->
@@ -186,6 +195,9 @@ public class SmartAlertAPIHandler
                         // inform the user accordingly.
                         Toast.makeText(activity, activity.getString(R.string.toast_wrong_credentials), Toast.LENGTH_LONG).show();
                     }
+
+                    // get the progressbar to be gone
+                    progressBar.setVisibility(View.GONE);
                 });
     }
 
@@ -202,12 +214,16 @@ public class SmartAlertAPIHandler
      */
     public void Signup(String email, String password, String name, Activity activity)
     {
+        // using the default firebase auth method, sign the user up.
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(activity, task ->
         {
+            // if the user successfully signs up.
             if (task.isSuccessful())
             {
+                // save the user.
                 User = mAuth.getCurrentUser();
 
+                // get the user's token.
                 User.getIdToken(false).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
                     @Override
                     public void onComplete(@NonNull Task<GetTokenResult> task)
@@ -216,12 +232,14 @@ public class SmartAlertAPIHandler
                     }
                 });
 
+                // start the new activity.
                 Intent intent = new Intent(activity, ViewAlerts.class);
                 activity.startActivity(intent);
                 activity.finish();
             }
             else
             {
+                // notify the user.
                 Toast.makeText(activity, activity.getString(R.string.toast_wrong_credentials), Toast.LENGTH_LONG).show();
             }
         });
