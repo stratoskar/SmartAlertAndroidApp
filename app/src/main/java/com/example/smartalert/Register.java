@@ -22,13 +22,19 @@ public class Register extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        // initialize app.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
 
+        // hide action support bar
+        getSupportActionBar().hide();
+
+        // email, name and password values
         email = findViewById(R.id.EditTextEmail_REGISTER);
         password = findViewById(R.id.EditTextPassword_REGISTER);
         name = findViewById(R.id.EditTextFullName_REGISTER);
 
+        // firebase auth singleton
         mAuth = FirebaseAuth.getInstance();
     }
 
