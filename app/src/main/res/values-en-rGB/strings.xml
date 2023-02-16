@@ -15,4 +15,12 @@
     <string name="warning_email">An E-Mail can\'t be empty.</string>
     <string name="warning_password">Please provide your password.</string>
     <string name="warning_name">Please enter your full name.</string>
+    <string name="label_report_incident">Report an incidient</string>
+    <string name="label_please_give_information_incident">Please, give us information about the natural disaster.</string>
+    <string name="radio_fire">Fire</string>
+    <string name="radio_flood">Flood</string>
+    <string name="radio_earthquake">Earthquake</string>
+    <string name="radio_strong_wind">Strong Wind</string>
+    <string name="label_description">Description:</string>
+    <string name="label_type_of_alert">Type of alert:</string>
 </resources>

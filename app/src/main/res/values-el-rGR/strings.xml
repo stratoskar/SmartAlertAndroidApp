@@ -15,4 +15,12 @@
     <string name="warning_email">Το E-Mail δεν μπορεί να είναι κενό.</string>
     <string name="warning_password">Παρακαλώ, εισάγετε κωδικό.</string>
     <string name="warning_name">Παρακαλώ, δώστε το ονοματεπώνυμό σας.</string>
+    <string name="label_report_incident">Δήλωση περιστατικού</string>
+    <string name="label_please_give_information_incident">Παρακαλώ, δώστε πληροφορίες για την φυσική καταστροφή</string>
+    <string name="radio_fire">Πυρκαγιά</string>
+    <string name="radio_flood">Πλημμύρα</string>
+    <string name="radio_earthquake">Σεισμός</string>
+    <string name="radio_strong_wind">Δυνατός Άνεμος</string>
+    <string name="label_description">Περιγραφή:</string>
+    <string name="label_type_of_alert">Τύπος Περιστατικού:</string>
 </resources>
