@@ -11,20 +11,27 @@ import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class fragment_alerts extends Fragment {
+import com.example.smartalert.SmartAlert.SmartAlertAPIHandler;
+
+public class fragment_alerts extends Fragment
+{
+    ViewGroup container;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+                             @Nullable Bundle savedInstanceState)
+    {
+        this.container = container;
         return inflater.inflate(R.layout.fragment_alerts, container, false);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-
+        SmartAlertAPIHandler.getInstance(this.getContext()).GetEventsBasedOnDangerUser();
     }
 
     /* Adds a new card to the screen

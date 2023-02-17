@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -49,6 +51,10 @@ public class SmartAlertAPIHandler
     private final RequestQueue requestQueue;
     private final FirebaseAuth mAuth;
     private FirebaseUser User;
+    private String firstname;
+    private String lastname;
+    private boolean isAdmin;
+
 
     private SmartAlertAPIHandler(Context context)
     {
@@ -71,7 +77,7 @@ public class SmartAlertAPIHandler
         return instance;
     }
 
-    private void SetFirstNameAndLastName(String firstname, String lastname)
+    private void SetFirstNameAndLastName(String firstname, String lastname, Activity activity, ProgressBar progressBar)
     {
         // URL ENDPOINT. Here is all the backend magic. This is where we retrieve all users and alerts.
         String url = URL + "users";
@@ -85,30 +91,9 @@ public class SmartAlertAPIHandler
                     @Override
                     public void onResponse(String response)
                     {
-                        try
-                        {
-                            System.out.println("Successfully set values firstName and lastName for currently logged on User.");
-                        }
-                        catch (Exception e)
-                        {
-                            // this is when something unexpected goes wrong. (E.g. the activity doesn't exist.)
-                            e.printStackTrace();
-                        }
+                        GetUserInfo(activity, progressBar);
                     }
-                }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error)
-            {
-
-                if (error == null)
-                {
-                    return;
-                }
-
-                error.printStackTrace();
-            }
-        })
+                }, null)
         {
             // These are the Headers.
             // Headers help authenticate users through tokens without having to type their password every single time.
@@ -144,6 +129,102 @@ public class SmartAlertAPIHandler
         requestQueue.add(request);
     }
 
+
+    public void GetEventsBasedOnDangerUser()
+    {
+        String url = URL + "events";
+
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response)
+                    {
+                        try
+                        {
+                            JSONArray jsonArray = new JSONArray(response);
+                            if (jsonArray.length() == 0)
+                            {
+                                System.out.println("Got an empty array.");
+                                return;
+                            }
+
+                            for (int i = 0; i < jsonArray.length(); i++)
+                            {
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                System.out.println(jsonObject.get("id"));
+                            }
+                        }
+                        catch (JSONException e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                null)
+        {
+            @Override
+            public HashMap<String, String> getHeaders()
+            {
+                HashMap<String, String> headers = new HashMap<>();
+                System.out.println(_token);
+                headers.put("Authorization", "Bearer " + _token);
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+
+        requestQueue.add(request);
+    }
+
+    private void GetUserInfo(Activity activity, ProgressBar progressBar)
+    {
+        String url = URL + "users";
+
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+                try
+                {
+                    System.out.println(response);
+
+                    // get user's information.
+                    JSONObject jsonResponse = new JSONObject(response);
+                    firstname = jsonResponse.getString("firstName");
+                    lastname = jsonResponse.getString("lastName");
+                    isAdmin = !jsonResponse.getString("role").equals("user");
+
+                    // get the progressbar to be gone
+                    progressBar.setVisibility(View.GONE);
+
+                    // start the new activity.
+                    Intent intent = new Intent(activity, ViewAlerts.class);
+                    activity.startActivity(intent);
+                    activity.finish();
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }, null)
+        {
+            @Override
+            public HashMap<String, String> getHeaders()
+            {
+                HashMap<String, String> headers = new HashMap<>();
+                System.out.println(_token);
+                headers.put("Authorization", "Bearer " + _token);
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+
+        requestQueue.add(request);
+    }
+
     /**
      * <h1>Authenticates the User.</h1>
      *
@@ -165,7 +246,6 @@ public class SmartAlertAPIHandler
                         // save the User object.
                         User = mAuth.getCurrentUser();
 
-                        System.out.println(User.getUid());
                         // get the user's token.
                         User.getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>()
                         {
@@ -173,30 +253,15 @@ public class SmartAlertAPIHandler
                             public void onComplete(@NonNull Task<GetTokenResult> task)
                             {
                                 _token = task.getResult().getToken();
-                                System.out.println(_token);
+                                GetUserInfo(activity, progressBar);
                             }
                         });
-
-                        // redirect to the new Activity.
-                        Intent intent = new Intent(activity, ViewAlerts.class);
-                        activity.startActivity(intent);
-                        activity.finish();
                     }
-
-                    task.addOnFailureListener(new OnFailureListener()
+                    else
                     {
-                        @Override
-                        public void onFailure(@NonNull Exception e)
-                        {
-                            if (e.getClass() == FirebaseAuthInvalidCredentialsException.class)
-                            {
-                                Toast.makeText(activity, activity.getString(R.string.toast_wrong_credentials), Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-
-                    // get the progressbar to be gone
-                    progressBar.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(activity, activity.getString(R.string.toast_wrong_credentials), Toast.LENGTH_LONG).show();
+                    }
                 });
     }
 
@@ -211,7 +276,7 @@ public class SmartAlertAPIHandler
      * @param name The User's Full Name.
      * @param activity The {@link Context} that called this function.
      */
-    public void Signup(String email, String password, String name, Activity activity)
+    public void Signup(String email, String password, String name, Activity activity, ProgressBar progressBar)
     {
         // using the default firebase auth method, sign the user up.
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(activity, task ->
@@ -231,27 +296,20 @@ public class SmartAlertAPIHandler
                         // save the token.
                         _token = task.getResult().getToken();
 
-                        System.out.println(_token);
-
                         // get the user's name
                         String firstname = name.split(" ")[0];
                         String lastname = name.split(" ")[1];
 
                         // and set it
-                        SetFirstNameAndLastName(firstname, lastname);
+                        SetFirstNameAndLastName(firstname, lastname, activity, progressBar);
                     }
                 });
-
-
-                // start the new activity.
-                Intent intent = new Intent(activity, ViewAlerts.class);
-                activity.startActivity(intent);
-                activity.finish();
             }
             else
             {
                 // notify the user.
-                Toast.makeText(activity, activity.getString(R.string.toast_wrong_credentials), Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(activity, activity.getString(R.string.toast_email_already_taken), Toast.LENGTH_LONG).show();
             }
         });
     }

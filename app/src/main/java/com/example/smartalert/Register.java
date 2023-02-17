@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.smartalert.SmartAlert.SmartAlertAPIHandler;
@@ -17,7 +18,7 @@ public class Register extends AppCompatActivity
     EditText email;
     EditText password;
     EditText name;
-    FirebaseAuth mAuth;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,9 +34,7 @@ public class Register extends AppCompatActivity
         email = findViewById(R.id.EditTextEmail_REGISTER);
         password = findViewById(R.id.EditTextPassword_REGISTER);
         name = findViewById(R.id.EditTextFullName_REGISTER);
-
-        // firebase auth singleton
-        mAuth = FirebaseAuth.getInstance();
+        progressBar = findViewById(R.id.ProgressBar_REGISTER);
     }
 
     // Register button
@@ -67,7 +66,10 @@ public class Register extends AppCompatActivity
         // and if at least one of them is empty, don't continue.
         if (skip) return;
 
-        SmartAlertAPIHandler.getInstance(this).Signup(email.getText().toString(), password.getText().toString(), name.getText().toString(), this);
+        SmartAlertAPIHandler.getInstance(this).Signup(email.getText().toString(), password.getText().toString(), name.getText().toString(), this, progressBar);
+
+        // Set the progress bar to be active.
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     // Go to login page, if user has an account already

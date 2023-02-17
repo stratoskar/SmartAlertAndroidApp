@@ -11,7 +11,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class ViewAlerts extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     BottomNavigationView bottomNavigationView;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_navigation);
 
@@ -24,9 +25,11 @@ public class ViewAlerts extends AppCompatActivity implements BottomNavigationVie
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item)
+    {
         Fragment fragment = null;
-        switch (item.getItemId()) {
+        switch (item.getItemId())
+        {
             case R.id.report_incident:
                 fragment = new fragment_report();
                 break;
@@ -38,12 +41,15 @@ public class ViewAlerts extends AppCompatActivity implements BottomNavigationVie
                 fragment = new fragment_alerts();
                 break;
         }
-        if (fragment != null) {
+
+        if (fragment != null)
+        {
             loadFragment(fragment);
         }
         return true;
     }
-    void loadFragment(Fragment fragment) {
+    void loadFragment(Fragment fragment)
+    {
         //to attach fragment
         getSupportFragmentManager().beginTransaction().replace(R.id.relativelayout, fragment).commit();
     }
