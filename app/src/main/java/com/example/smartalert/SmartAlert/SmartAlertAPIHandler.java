@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -18,14 +19,19 @@ import com.android.volley.toolbox.Volley;
 import com.example.smartalert.R;
 import com.example.smartalert.ViewAlerts;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.SuccessContinuation;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 /**
@@ -37,7 +43,7 @@ import java.util.HashMap;
  */
 public class SmartAlertAPIHandler
 {
-    private static final String URL = "";
+    private static final String URL = "https://us-central1-smartalertapi.cloudfunctions.net/api/";
     private String _token;
     private static SmartAlertAPIHandler instance;
     private final RequestQueue requestQueue;
@@ -65,10 +71,10 @@ public class SmartAlertAPIHandler
         return instance;
     }
 
-    private void AccountHandle(boolean Login, Activity activity, String... parameters)
+    private void SetFirstNameAndLastName(String firstname, String lastname)
     {
         // URL ENDPOINT. Here is all the backend magic. This is where we retrieve all users and alerts.
-        String url = URL + (Login? "/auth/login" : "/signup");
+        String url = URL + "users";
 
         // This string request sends a POST request to the endpoint.
         // It also handles the Requests accordingly. When the credentials are correct, it goes to the next Activity. When they aren't it shows an error message.
@@ -81,14 +87,7 @@ public class SmartAlertAPIHandler
                     {
                         try
                         {
-                            // Save the token somewhere safe.
-                            JSONObject jsonResponse = new JSONObject(response);
-                            _token = jsonResponse.getString("auth_token");
-
-                            // and start the new activity.
-                            Intent intent = new Intent(activity, ViewAlerts.class);
-                            activity.startActivity(intent);
-                            activity.finish();
+                            System.out.println("Successfully set values firstName and lastName for currently logged on User.");
                         }
                         catch (Exception e)
                         {
@@ -101,52 +100,44 @@ public class SmartAlertAPIHandler
             @Override
             public void onErrorResponse(VolleyError error)
             {
+
                 if (error == null)
                 {
-                    Toast.makeText(activity, activity.getString(R.string.toast_unexpected_error), Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                // individual wrong cases.
-                switch (error.networkResponse.statusCode)
-                {
-                    // 401 means that there are wrong credentials given.
-                    case 401:
-                        Toast.makeText(activity, activity.getString(R.string.toast_wrong_credentials), Toast.LENGTH_LONG).show();
-                        break;
-                    // 422 means that the email uniqueness is not covered.
-                    case 422:
-                        Toast.makeText(activity, activity.getString(R.string.toast_email_already_taken), Toast.LENGTH_LONG).show();
-                        break;
-                    // 500 code means internal server error.
-                    case 500:
-                        Toast.makeText(activity, activity.getString(R.string.toast_internal_server_error), Toast.LENGTH_LONG).show();
-                        break;
-                    // we have no idea what else is bound to be wrong.
-                    default:
-                        System.out.println(error.toString());
-                        Toast.makeText(activity, activity.getString(R.string.toast_unexpected_error), Toast.LENGTH_LONG).show();
-                }
+                error.printStackTrace();
             }
         })
         {
-            // and these are the Params. Params are responsible to pass the data through the POST request.
-            // our data here is only the e-mail and the password.
+            // These are the Headers.
+            // Headers help authenticate users through tokens without having to type their password every single time.
             @Override
-            protected HashMap<String, String> getParams()
+            public HashMap<String, String> getHeaders()
             {
-                HashMap<String, String> params = new HashMap<>();
-                params.put("email", parameters[0]);
-                params.put("password", parameters[1]);
-
-                if (!Login)
-                {
-                    params.put("name", parameters[2]);
-                    params.put("password_confirmation", parameters[1]);
-                }
-
-                return params;
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + _token);
+                headers.put("Content-Type", "application/json");
+                return headers;
             }
+
+            // The backend module gets responses with JSON Body
+            // our previously set body here is set.
+            @Override
+            public byte[] getBody()
+            {
+                String body = String.format("{\"firstName\": \"%s\", \"lastName\": \"%s\"}", firstname, lastname);
+
+                try
+                {
+                    return body == null ? null : body.getBytes("utf-8");
+                }
+                catch (UnsupportedEncodingException e)
+                {
+                    return null;
+                }
+            }
+
         };
 
         // send the request. Await for the listeners.
@@ -174,12 +165,15 @@ public class SmartAlertAPIHandler
                         // save the User object.
                         User = mAuth.getCurrentUser();
 
+                        System.out.println(User.getUid());
                         // get the user's token.
-                        User.getIdToken(false).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                        User.getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>()
+                        {
                             @Override
                             public void onComplete(@NonNull Task<GetTokenResult> task)
                             {
                                 _token = task.getResult().getToken();
+                                System.out.println(_token);
                             }
                         });
 
@@ -189,12 +183,17 @@ public class SmartAlertAPIHandler
                         activity.finish();
                     }
 
-                    // otherwise, some error might have occurred.
-                    else
+                    task.addOnFailureListener(new OnFailureListener()
                     {
-                        // inform the user accordingly.
-                        Toast.makeText(activity, activity.getString(R.string.toast_wrong_credentials), Toast.LENGTH_LONG).show();
-                    }
+                        @Override
+                        public void onFailure(@NonNull Exception e)
+                        {
+                            if (e.getClass() == FirebaseAuthInvalidCredentialsException.class)
+                            {
+                                Toast.makeText(activity, activity.getString(R.string.toast_wrong_credentials), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
 
                     // get the progressbar to be gone
                     progressBar.setVisibility(View.GONE);
@@ -224,13 +223,25 @@ public class SmartAlertAPIHandler
                 User = mAuth.getCurrentUser();
 
                 // get the user's token.
-                User.getIdToken(false).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                User.getIdToken(false).addOnCompleteListener(new OnCompleteListener<GetTokenResult>()
+                {
                     @Override
                     public void onComplete(@NonNull Task<GetTokenResult> task)
                     {
+                        // save the token.
                         _token = task.getResult().getToken();
+
+                        System.out.println(_token);
+
+                        // get the user's name
+                        String firstname = name.split(" ")[0];
+                        String lastname = name.split(" ")[1];
+
+                        // and set it
+                        SetFirstNameAndLastName(firstname, lastname);
                     }
                 });
+
 
                 // start the new activity.
                 Intent intent = new Intent(activity, ViewAlerts.class);
