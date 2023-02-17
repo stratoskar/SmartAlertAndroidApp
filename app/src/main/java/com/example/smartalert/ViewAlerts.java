@@ -14,6 +14,10 @@ public class ViewAlerts extends AppCompatActivity implements BottomNavigationVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_navigation);
+
+        // hide action support bar
+        getSupportActionBar().hide();
+
         bottomNavigationView = findViewById(R.id.bottonnav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         loadFragment(new fragment_alerts());
