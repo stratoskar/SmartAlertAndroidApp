@@ -3,28 +3,27 @@ package com.example.smartalert.SmartAlert;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.smartalert.R;
 import com.example.smartalert.ViewAlerts;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.SuccessContinuation;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 
@@ -33,7 +32,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -130,7 +130,7 @@ public class SmartAlertAPIHandler
     }
 
 
-    public void GetEventsBasedOnDangerUser()
+    public void GetEventsBasedOnDangerUser(LinearLayout layout, LayoutInflater inflater, ProgressBar progressBar)
     {
         String url = URL + "events";
 
@@ -154,9 +154,33 @@ public class SmartAlertAPIHandler
                             {
                                 for (int i = 0; i < jsonArray.length(); i++)
                                 {
+                                    // initialize card view.
+                                    View cardView = inflater.inflate(R.layout.card, null);
+
+                                    // initialize card view views.
+                                    TextView title = cardView.findViewById(R.id.TextViewTitle_CARD);
+                                    TextView description = cardView.findViewById(R.id.TextViewDescription_CARD);
+                                    TextView date = cardView.findViewById(R.id.TextViewDate_CARD);
+                                    TextView danger = cardView.findViewById(R.id.TextViewDanger_CARD);
+
+                                    // initialize json object.
                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
+                                    // set title and description properly
+                                    title.setText(jsonObject.getString("title"));
+                                    description.setText(jsonObject.getString("description"));
 
+                                    // display date properly
+                                    long milliseconds = (long) jsonObject.getInt("createdAt") * 1000;
+                                    Date date1 = new Date(milliseconds);
+                                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+
+                                    date.setText(sdf.format(date1));
+
+                                    // display danger
+                                    danger.setText(String.format("%f%%", jsonObject.getDouble("danger")));
+
+                                    layout.addView(cardView);
                                 }
                             }
                             else
@@ -168,6 +192,10 @@ public class SmartAlertAPIHandler
                         catch (JSONException e)
                         {
                             e.printStackTrace();
+                        }
+                        finally
+                        {
+                            progressBar.setVisibility(View.GONE);
                         }
                     }
                 },

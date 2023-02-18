@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
@@ -27,12 +29,13 @@ public class fragment_alerts extends Fragment
 
         View view = inflater.inflate(R.layout.fragment_alerts, container, false);
 
-        View cardView = getLayoutInflater().inflate(R.layout.card, null);
+        RelativeLayout layout = (RelativeLayout) view;
+        LinearLayout layout1 = layout.findViewById(R.id.LinearLayout_SCRLVIEW);
 
-        LinearLayout layout = (LinearLayout) view;
-        ScrollView scrollView = layout.findViewById(R.id.ScrollView_ALERTS);
+        ProgressBar progressBar = layout.findViewById(R.id.ProgressBar_CARD);
+        progressBar.setVisibility(View.VISIBLE);
 
-        scrollView.addView(cardView);
+        SmartAlertAPIHandler.getInstance(this.getContext()).GetEventsBasedOnDangerUser(layout1, getLayoutInflater(), progressBar);
 
         return view;
     }

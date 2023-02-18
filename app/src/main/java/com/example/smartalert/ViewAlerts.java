@@ -22,7 +22,7 @@ public class ViewAlerts extends AppCompatActivity implements BottomNavigationVie
 
         bottomNavigationView = findViewById(R.id.bottonnav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        loadFragment(new fragment_report());
+        loadFragment(new fragment_alerts());
     }
 
     @Override
