@@ -33,6 +33,9 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -171,11 +174,9 @@ public class SmartAlertAPIHandler
                                     description.setText(jsonObject.getString("description"));
 
                                     // display date properly
-                                    long milliseconds = (long) jsonObject.getInt("createdAt") * 1000;
-                                    Date date1 = new Date(milliseconds);
-                                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-
-                                    date.setText(sdf.format(date1));
+                                    long seconds = jsonObject.getLong("createdAt");
+                                    String date1 = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new java.util.Date (seconds));
+                                    date.setText(date1);
 
                                     // display danger
                                     danger.setText(String.format("%f%%", jsonObject.getDouble("danger")));
