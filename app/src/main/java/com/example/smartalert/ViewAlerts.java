@@ -8,7 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class ViewAlerts extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class ViewAlerts extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
+{
     BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -21,7 +22,7 @@ public class ViewAlerts extends AppCompatActivity implements BottomNavigationVie
 
         bottomNavigationView = findViewById(R.id.bottonnav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        loadFragment(new fragment_alerts());
+        loadFragment(new fragment_report());
     }
 
     @Override

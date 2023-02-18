@@ -142,6 +142,7 @@ public class SmartAlertAPIHandler
                     {
                         try
                         {
+                            // here have to display cards to the user according to how many incidents there are.
                             JSONArray jsonArray = new JSONArray(response);
                             if (jsonArray.length() == 0)
                             {
@@ -149,11 +150,20 @@ public class SmartAlertAPIHandler
                                 return;
                             }
 
-                            for (int i = 0; i < jsonArray.length(); i++)
+                            if (isAdmin)
                             {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                System.out.println(jsonObject.get("id"));
+                                for (int i = 0; i < jsonArray.length(); i++)
+                                {
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+
+                                }
                             }
+                            else
+                            {
+
+                            }
+
                         }
                         catch (JSONException e)
                         {

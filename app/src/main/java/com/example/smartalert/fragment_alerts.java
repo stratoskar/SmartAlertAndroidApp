@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
@@ -13,35 +15,31 @@ import androidx.annotation.Nullable;
 
 import com.example.smartalert.SmartAlert.SmartAlertAPIHandler;
 
+import org.w3c.dom.Text;
+
+import java.util.Objects;
+
 public class fragment_alerts extends Fragment
 {
-    ViewGroup container;
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        this.container = container;
-        return inflater.inflate(R.layout.fragment_alerts, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_alerts, container, false);
+
+        View cardView = getLayoutInflater().inflate(R.layout.card, null);
+
+        LinearLayout layout = (LinearLayout) view;
+        ScrollView scrollView = layout.findViewById(R.id.ScrollView_ALERTS);
+
+        scrollView.addView(cardView);
+
+        return view;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        SmartAlertAPIHandler.getInstance(this.getContext()).GetEventsBasedOnDangerUser();
     }
-
-    /* Adds a new card to the screen
-    public addCard()
-    {
-        View view = getLayoutInflater().inflate(R.layout.card,null);
-        TextView text = view.findViewById(R.id.textView);
-        ImageView image = view.findViewById(R.id.imageView);
-        Button accept_button = view.findViewById(R.id.Accept_Button);
-        Button decline_button = view.findViewById(R.id.Decline_Button);
-    }
-    */
 }

@@ -25,7 +25,7 @@
             android:background="#7d5260">
 
             <TextView
-                android:id="@+id/TextView_title"
+                android:id="@+id/TextViewTitle_CARD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Title of Alert"
@@ -34,7 +34,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/TextView_Description"
+                android:id="@+id/TextViewDescription_CARD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -52,7 +52,7 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/TextView_Date"
+                    android:id="@+id/TextViewDate_CARD"
                     android:layout_width="wrap_content"
                     android:textColor="#ffffff"
                     android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                     android:text="Date"/>
 
                 <TextView
-                    android:id="@+id/TV_Category"
+                    android:id="@+id/TextViewCategory_CARD"
                     android:layout_width="wrap_content"
                     android:textColor="#ffffff"
                     android:layout_height="wrap_content"
