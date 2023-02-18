@@ -5,14 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -32,11 +31,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -132,6 +126,59 @@ public class SmartAlertAPIHandler
         requestQueue.add(request);
     }
 
+    private void ApproveAlert(String id)
+    {
+        String url = URL + "events/" + id + "/approve";
+
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+
+            }
+        }, null)
+        {
+            @Override
+            public HashMap<String, String> getHeaders()
+            {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + _token);
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+
+        requestQueue.add(request);
+    }
+
+    private void RejectAlert(String id)
+    {
+        String url = URL + "events/" + id;
+
+        StringRequest request = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+
+            }
+        }, null)
+        {
+            @Override
+            public HashMap<String, String> getHeaders()
+            {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + _token);
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+
+        requestQueue.add(request);
+    }
+
+
 
     public void GetEventsBasedOnDangerUser(LinearLayout layout, LayoutInflater inflater, ProgressBar progressBar)
     {
@@ -157,14 +204,68 @@ public class SmartAlertAPIHandler
                             {
                                 for (int i = 0; i < jsonArray.length(); i++)
                                 {
-                                    // initialize card view.
-                                    View cardView = inflater.inflate(R.layout.card, null);
+                                    View cardView = inflater.inflate(R.layout.admin_card, null);
 
                                     // initialize card view views.
-                                    TextView title = cardView.findViewById(R.id.TextViewTitle_CARD);
-                                    TextView description = cardView.findViewById(R.id.TextViewDescription_CARD);
-                                    TextView date = cardView.findViewById(R.id.TextViewDate_CARD);
-                                    TextView danger = cardView.findViewById(R.id.TextViewDanger_CARD);
+                                    TextView title = cardView.findViewById(R.id.TextViewTitle_ADMIN);
+                                    TextView description = cardView.findViewById(R.id.TextViewDescription_ADMIN);
+                                    TextView date = cardView.findViewById(R.id.TextViewDate_ADMIN);
+                                    TextView danger = cardView.findViewById(R.id.TextViewDanger_ADMIN);
+
+                                    Button approve = cardView.findViewById(R.id.ButtonApprove_ADMIN);
+                                    Button reject = cardView.findViewById(R.id.ButtonReject_ADMIN);
+
+                                    // initialize json object.
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                                    String id = jsonObject.getString("id");
+
+                                    approve.setOnClickListener(new View.OnClickListener()
+                                    {
+                                        @Override
+                                        public void onClick(View v)
+                                        {
+                                            ApproveAlert(id);
+                                        }
+                                    });
+
+                                    reject.setOnClickListener(new View.OnClickListener()
+                                    {
+                                        @Override
+                                        public void onClick(View v)
+                                        {
+                                            RejectAlert(id);
+                                        }
+                                    });
+
+                                    // set title and description properly
+                                    title.setText(jsonObject.getString("title"));
+                                    description.setText(jsonObject.getString("description"));
+
+                                    // display date properly
+                                    long seconds = jsonObject.getLong("createdAt");
+                                    String date1 = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new java.util.Date(seconds));
+                                    date.setText(date1);
+
+                                    // display danger
+                                    danger.setText(String.format("%f%%", jsonObject.getDouble("danger")));
+
+                                    layout.addView(cardView);
+                                }
+
+                            }
+                            else
+                            {
+                                for (int i = 0; i < jsonArray.length(); i++)
+                                {
+                                    // initialize card view.
+                                    View cardView = inflater.inflate(R.layout.report_card, null);
+
+                                    // initialize card view views.
+                                    TextView title = cardView.findViewById(R.id.TextViewTitle_REPORT);
+                                    TextView description = cardView.findViewById(R.id.TextViewDescription_REPORT);
+                                    TextView date = cardView.findViewById(R.id.TextViewDate_REPORT);
+                                    TextView danger = cardView.findViewById(R.id.TextViewDanger_REPORT);
 
                                     // initialize json object.
                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -175,7 +276,7 @@ public class SmartAlertAPIHandler
 
                                     // display date properly
                                     long seconds = jsonObject.getLong("createdAt");
-                                    String date1 = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new java.util.Date (seconds));
+                                    String date1 = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new java.util.Date(seconds));
                                     date.setText(date1);
 
                                     // display danger
@@ -183,9 +284,6 @@ public class SmartAlertAPIHandler
 
                                     layout.addView(cardView);
                                 }
-                            }
-                            else
-                            {
 
                             }
 
