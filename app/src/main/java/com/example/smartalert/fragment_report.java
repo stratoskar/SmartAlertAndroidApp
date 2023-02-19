@@ -1,7 +1,9 @@
 package com.example.smartalert;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -38,18 +40,30 @@ public class fragment_report extends Fragment
         View view = inflater.inflate(R.layout.fragment_report, container, false);
         ScrollView layout = (ScrollView) view;
 
+        // default views. From these views we want their values.
         radioGroup = layout.findViewById(R.id.radio_radioGroup);
         description = layout.findViewById(R.id.editText_enter_description);
         button = layout.findViewById(R.id.button_report);
 
+        // code for when the button is pressed
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                // the button is available to be pressed only when all values are not empty.
                 if (!checkIfEveryFieldIsFilled())
                     return;
 
+                // store to shared preferences the variables.
+                SharedPreferences SP = getContext().getSharedPreferences("AlertData", Context.MODE_PRIVATE);
+                SharedPreferences.Editor SpEditor = SP.edit();
+
+                SpEditor.putString("Description", description.getText().toString());
+                SpEditor.putString("Type", takeRadioButtonValue());
+                SpEditor.apply();
+
+                // start new activity.
                 Intent intent = new Intent(getContext(), approve.class);
                 startActivity(intent);
             }
