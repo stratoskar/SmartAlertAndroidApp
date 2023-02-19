@@ -10,6 +10,14 @@
         android:layout_height="match_parent"
         android:background="#ffffff">
 
+        <LinearLayout
+            android:id="@+id/LinearLayout_approve_cards"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
         <Button
             android:id="@+id/button_approve"
             android:layout_width="248dp"
