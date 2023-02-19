@@ -10,15 +10,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 public class fragment_report extends Fragment
 {
-
+    private Button button;
     private EditText description;
     private RadioButton radioButton;
     private RadioGroup radioGroup;
@@ -34,41 +36,55 @@ public class fragment_report extends Fragment
     {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_report, container, false);
-        ConstraintLayout layout = (ConstraintLayout) view;
+        ScrollView layout = (ScrollView) view;
 
         radioGroup = layout.findViewById(R.id.radio_radioGroup);
         description = layout.findViewById(R.id.editText_enter_description);
+        button = layout.findViewById(R.id.button_report);
+
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (!checkIfEveryFieldIsFilled())
+                    return;
+
+                Toast.makeText(getContext(), "Opening other activity.", Toast.LENGTH_LONG).show();
+            }
+        });
 
        return view;
     }
 
     // check if a radio button value is selected by the user or not
-    public String takeRadioButtonValue() {
+    public String takeRadioButtonValue()
+    {
         int selectedId = radioGroup.getCheckedRadioButtonId();
-        radioButton = radioButton.findViewById(selectedId);
-        if (selectedId == -1) {
+        radioButton = radioGroup.findViewById(selectedId);
+
+        if (selectedId == -1)
             return "Nothing Selected";
-        }
-        else
-        {
-            return "OK";
-        }
+
+        return radioButton.getText().toString();
     }
 
     // this method is called as soon as the button is clicked by the user
-    public void checkIfEveryFieldIsFilled(LayoutInflater inflater, ViewGroup container)
+    public boolean checkIfEveryFieldIsFilled()
     {
-        String radioValue = takeRadioButtonValue();
-        String descriptionValue = description.getText().toString();
-        if (descriptionValue == "" || radioValue == "Nothing Selected")
+        if (description.getText().toString().trim().equals(""))
         {
-            View view = inflater.inflate(R.layout.fragment_approve, container, false);
-            //return View;
+            description.setError("Description cannot be empty.");
+            return false;
         }
-        else
+
+        if (takeRadioButtonValue().equals("Nothing Selected"))
         {
-            // show message to user
+            Toast.makeText(getContext(), "Please select an incident.", Toast.LENGTH_LONG).show();
+            return false;
         }
+
+        return true;
     }
 
 }
