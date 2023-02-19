@@ -221,7 +221,7 @@ public class SmartAlertAPIHandler
 
                                     Button approve = cardView.findViewById(R.id.ButtonApprove_ADMIN);
                                     Button reject = cardView.findViewById(R.id.ButtonReject_ADMIN);
-                                    
+
                                     String id = jsonObject.getString("id");
 
                                     approve.setOnClickListener(new View.OnClickListener()
@@ -362,6 +362,68 @@ public class SmartAlertAPIHandler
         requestQueue.add(request);
     }
 
+    private void UpdateLastKnownLocation(double latitude, double longitude)
+    {
+        String url = URL + "users";
+
+        StringRequest request = new StringRequest(Request.Method.PATCH, url, null, null)
+        {
+            @Override
+            public byte[] getBody()
+            {
+                String body = String.format("{\"latitude\": %f, \"longitude\": %f}", latitude, longitude);
+
+                try
+                {
+                    return body == null ? null : body.getBytes("utf-8");
+                }
+                catch (UnsupportedEncodingException e)
+                {
+                    return null;
+                }
+            }
+
+            @Override
+            public HashMap<String, String> getHeaders()
+            {
+                HashMap<String, String> headers = new HashMap<>();
+                System.out.println(_token);
+                headers.put("Authorization", "Bearer " + _token);
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+
+        requestQueue.add(request);
+    }
+
+    public void ConfirmCloseEvents(float longitude, float latitude, ProgressBar progressBar)
+    {
+        String url = URL + "events/close?longitude=" + longitude + "&latitude=" + latitude;
+
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+                progressBar.setVisibility(View.GONE);
+            }
+        }, null)
+        {
+            @Override
+            public HashMap<String, String> getHeaders()
+            {
+                HashMap<String, String> headers = new HashMap<>();
+                System.out.println(_token);
+                headers.put("Authorization", "Bearer " + _token);
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+
+        requestQueue.add(request);
+    }
+
     /**
      * <h1>Authenticates the User.</h1>
      *
@@ -372,7 +434,7 @@ public class SmartAlertAPIHandler
      * @param password A password is provided by the User through {@link android.widget.EditText} and securely stored in the database.
      * @param activity The {@link Context} that called this function.
      */
-    public void Login(String email, String password, Activity activity, ProgressBar progressBar)
+    public void Login(String email, String password, double latitude, double longitude, Activity activity, ProgressBar progressBar)
     {
         // sign in the user using email and password.
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(activity, task ->
@@ -391,6 +453,7 @@ public class SmartAlertAPIHandler
                             {
                                 _token = task.getResult().getToken();
                                 GetUserInfo(activity, progressBar);
+                                UpdateLastKnownLocation(latitude, longitude);
                             }
                         });
                     }

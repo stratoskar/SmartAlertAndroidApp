@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.smartalert.R;
+import com.example.smartalert.SmartAlert.SmartAlertAPIHandler;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class approve extends AppCompatActivity
@@ -32,6 +33,7 @@ public class approve extends AppCompatActivity
         Description = SP.getString("Description", "");
         Type = SP.getString("Type", "");
 
+        //SmartAlertAPIHandler.getInstance(this).ConfirmCloseEvents();
     }
 }
 
