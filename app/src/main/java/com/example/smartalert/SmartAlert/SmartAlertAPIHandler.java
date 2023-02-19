@@ -126,7 +126,7 @@ public class SmartAlertAPIHandler
         requestQueue.add(request);
     }
 
-    private void ApproveAlert(String id)
+    private void ApproveAlert(String id, View cardView, Activity context)
     {
         String url = URL + "events/" + id + "/approve";
 
@@ -135,7 +135,8 @@ public class SmartAlertAPIHandler
             @Override
             public void onResponse(String response)
             {
-
+                cardView.setVisibility(View.GONE);
+                Toast.makeText(context, "Successfully Approved Alert.", Toast.LENGTH_LONG).show();
             }
         }, null)
         {
@@ -152,7 +153,7 @@ public class SmartAlertAPIHandler
         requestQueue.add(request);
     }
 
-    private void RejectAlert(String id)
+    private void RejectAlert(String id, View cardView, Activity context)
     {
         String url = URL + "events/" + id;
 
@@ -161,7 +162,8 @@ public class SmartAlertAPIHandler
             @Override
             public void onResponse(String response)
             {
-
+                cardView.setVisibility(View.GONE);
+                Toast.makeText(context, "Successfully Rejected Alert.", Toast.LENGTH_LONG).show();
             }
         }, null)
         {
@@ -179,8 +181,7 @@ public class SmartAlertAPIHandler
     }
 
 
-
-    public void GetEventsBasedOnDangerUser(LinearLayout layout, LayoutInflater inflater, ProgressBar progressBar)
+    public void GetEventsBasedOnDangerUser(LinearLayout layout, LayoutInflater inflater, ProgressBar progressBar, Activity activity)
     {
         String url = URL + "events";
 
@@ -204,6 +205,12 @@ public class SmartAlertAPIHandler
                             {
                                 for (int i = 0; i < jsonArray.length(); i++)
                                 {
+                                    // initialize json object.
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                                    if (!jsonObject.getString("approvedByUserId").equals("null"))
+                                        continue;
+
                                     View cardView = inflater.inflate(R.layout.admin_card, null);
 
                                     // initialize card view views.
@@ -214,10 +221,7 @@ public class SmartAlertAPIHandler
 
                                     Button approve = cardView.findViewById(R.id.ButtonApprove_ADMIN);
                                     Button reject = cardView.findViewById(R.id.ButtonReject_ADMIN);
-
-                                    // initialize json object.
-                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-
+                                    
                                     String id = jsonObject.getString("id");
 
                                     approve.setOnClickListener(new View.OnClickListener()
@@ -225,7 +229,7 @@ public class SmartAlertAPIHandler
                                         @Override
                                         public void onClick(View v)
                                         {
-                                            ApproveAlert(id);
+                                            ApproveAlert(id, cardView, activity);
                                         }
                                     });
 
@@ -234,7 +238,7 @@ public class SmartAlertAPIHandler
                                         @Override
                                         public void onClick(View v)
                                         {
-                                            RejectAlert(id);
+                                            RejectAlert(id, cardView, activity);
                                         }
                                     });
 
@@ -265,7 +269,6 @@ public class SmartAlertAPIHandler
                                     TextView title = cardView.findViewById(R.id.TextViewTitle_REPORT);
                                     TextView description = cardView.findViewById(R.id.TextViewDescription_REPORT);
                                     TextView date = cardView.findViewById(R.id.TextViewDate_REPORT);
-                                    TextView danger = cardView.findViewById(R.id.TextViewDanger_REPORT);
 
                                     // initialize json object.
                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -278,9 +281,6 @@ public class SmartAlertAPIHandler
                                     long seconds = jsonObject.getLong("createdAt");
                                     String date1 = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(new java.util.Date(seconds));
                                     date.setText(date1);
-
-                                    // display danger
-                                    danger.setText(String.format("%f%%", jsonObject.getDouble("danger")));
 
                                     layout.addView(cardView);
                                 }
