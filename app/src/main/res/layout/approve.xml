@@ -17,7 +17,6 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent" />
 
-
         <Button
             android:id="@+id/button_approve"
             android:layout_width="248dp"
