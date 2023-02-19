@@ -82,14 +82,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="APPROVE" />
+                    android:backgroundTint="#4CAF50"
+                    android:text="APPROVE"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"/>
 
                 <Button
                     android:id="@+id/ButtonReject_ADMIN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="REJECT" />
+                    android:backgroundTint="#F44336"
+                    android:text="REJECT"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold" />
             </LinearLayout>
 
 
