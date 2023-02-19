@@ -33,6 +33,10 @@
             android:name=".ViewAlerts"
             android:exported="false">
         </activity>
+        <activity
+            android:name=".approve"
+            android:exported="false">
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

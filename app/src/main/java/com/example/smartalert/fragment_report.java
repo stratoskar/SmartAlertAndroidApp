@@ -50,7 +50,8 @@ public class fragment_report extends Fragment
                 if (!checkIfEveryFieldIsFilled())
                     return;
 
-                Toast.makeText(getContext(), "Opening other activity.", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getContext(), approve.class);
+                startActivity(intent);
             }
         });
 
