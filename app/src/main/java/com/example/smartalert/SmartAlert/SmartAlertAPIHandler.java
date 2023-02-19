@@ -48,6 +48,8 @@ public class SmartAlertAPIHandler
     private final RequestQueue requestQueue;
     private final FirebaseAuth mAuth;
     private FirebaseUser User;
+    private double latitude;
+    private double longitude;
     private String firstname;
     private String lastname;
     private boolean isAdmin;
@@ -74,7 +76,7 @@ public class SmartAlertAPIHandler
         return instance;
     }
 
-    private void SetFirstNameAndLastName(String firstname, String lastname, Activity activity, ProgressBar progressBar)
+    private void SetFirstNameAndLastName(String firstname, String lastname, Activity activity, ProgressBar progressBar, double latitude, double longitude)
     {
         // URL ENDPOINT. Here is all the backend magic. This is where we retrieve all users and alerts.
         String url = URL + "users";
@@ -88,6 +90,7 @@ public class SmartAlertAPIHandler
                     @Override
                     public void onResponse(String response)
                     {
+                        UpdateLastKnownLocation(latitude, longitude);
                         GetUserInfo(activity, progressBar);
                     }
                 }, null)
@@ -366,7 +369,11 @@ public class SmartAlertAPIHandler
     {
         String url = URL + "users";
 
-        StringRequest request = new StringRequest(Request.Method.PATCH, url, null, null)
+        StringRequest request = new StringRequest(Request.Method.PATCH, url, response ->
+        {
+            this.latitude = latitude;
+            this.longitude = longitude;
+        }, null)
         {
             @Override
             public byte[] getBody()
@@ -476,7 +483,7 @@ public class SmartAlertAPIHandler
      * @param name The User's Full Name.
      * @param activity The {@link Context} that called this function.
      */
-    public void Signup(String email, String password, String name, Activity activity, ProgressBar progressBar)
+    public void Signup(String email, String password, String name, double latitude, double longitude, Activity activity, ProgressBar progressBar)
     {
         // using the default firebase auth method, sign the user up.
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(activity, task ->
@@ -501,7 +508,7 @@ public class SmartAlertAPIHandler
                         String lastname = name.split(" ")[1];
 
                         // and set it
-                        SetFirstNameAndLastName(firstname, lastname, activity, progressBar);
+                        SetFirstNameAndLastName(firstname, lastname, activity, progressBar, latitude, longitude);
                     }
                 });
             }
