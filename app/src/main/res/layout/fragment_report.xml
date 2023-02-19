@@ -159,43 +159,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textview_reportIncident" />
 
-        <TextView
-            android:id="@+id/text_view_upload_photo"
-            android:layout_width="187dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="56dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="114dp"
-            android:width="73dp"
-            android:clickable="true"
-            android:text="📷 - Upload Additional File"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:flow_horizontalAlign="center"
-            app:flow_verticalAlign="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radio_radioGroup" />
-
         <Button
             android:id="@+id/button_report"
             android:layout_width="248dp"
             android:layout_height="48dp"
             android:layout_marginStart="82dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="81dp"
             android:layout_marginEnd="82dp"
             android:width="248dp"
             android:backgroundTint="#7d5260"
             android:text="Report incident"
             android:textColor="#ffffff"
             android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_upload_photo" />
+            app:layout_constraintTop_toBottomOf="@+id/radio_radioGroup" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
