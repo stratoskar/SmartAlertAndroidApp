@@ -303,6 +303,11 @@ public class SmartAlertAPIHandler
                                     // initialize json object.
                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
+                                    if (!jsonObject.getString("approvedByUserId").equals("null"))
+                                    {
+                                        continue;
+                                    }
+
                                     View cardView = inflater.inflate(R.layout.admin_card, null);
 
                                     // initialize card view views.
@@ -316,11 +321,7 @@ public class SmartAlertAPIHandler
 
                                     String id = jsonObject.getString("id");
 
-                                    if (!jsonObject.getString("approvedByUserId").equals("null"))
-                                    {
-                                        approve.setVisibility(View.GONE);
-                                        reject.setVisibility(View.GONE);
-                                    }
+
 
                                     approve.setOnClickListener(new View.OnClickListener()
                                     {
