@@ -69,8 +69,29 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
                         .setContentText(messageBody)
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
-                        .setContentIntent(pendingIntent)
-                        .setSmallIcon(R.drawable.fire);
+                        .setContentIntent(pendingIntent);
+
+        int icon;
+        switch (messageTitle)
+        {
+            case "Flood":
+                icon = R.drawable.flood;
+                break;
+            case "Fire":
+                icon = R.drawable.fire;
+                break;
+            case "Earthquake":
+                icon = R.drawable.earthquake;
+                break;
+            case "Strong Wind":
+                icon = R.drawable.strong_wind;
+                break;
+            default:
+                icon = R.drawable.ic_stat_ic_notification;
+                break;
+        }
+
+        notificationBuilder.setSmallIcon(icon);
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
