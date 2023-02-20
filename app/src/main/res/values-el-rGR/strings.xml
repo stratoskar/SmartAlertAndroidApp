@@ -23,4 +23,6 @@
     <string name="radio_strong_wind">Δυνατός Άνεμος</string>
     <string name="label_description">Περιγραφή:</string>
     <string name="label_type_of_alert">Τύπος Περιστατικού:</string>
+    <string name="approve">Αν κανένα από τα παραπάνω συμβάντα δεν είναι το δικό σας, φτιάξτε καινούργιο.</string>
+    <string name="yes">Υποβολή Νέου Περιστατικού</string>
 </resources>

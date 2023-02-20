@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -36,7 +37,9 @@ public class approve extends AppCompatActivity
         Description = SP.getString("Description", "");
         Type = SP.getString("Type", "");
 
-        SmartAlertAPIHandler.getInstance(this).ConfirmCloseEvents(progressBar);
+        LinearLayout layout = findViewById(R.id.LinearLayout_approve_cards);
+
+       SmartAlertAPIHandler.getInstance(this).ConfirmCloseEvents(progressBar, getLayoutInflater(), layout);
     }
 
     public void SendAlert(View v)

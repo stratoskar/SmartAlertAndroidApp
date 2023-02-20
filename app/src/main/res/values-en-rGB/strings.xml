@@ -23,4 +23,6 @@
     <string name="radio_strong_wind">Strong Wind</string>
     <string name="label_description">Description:</string>
     <string name="label_type_of_alert">Type of alert:</string>
+    <string name="approve">If none of the above match your alert, submit a new one.</string>
+    <string name="yes">Submit New Alert</string>
 </resources>

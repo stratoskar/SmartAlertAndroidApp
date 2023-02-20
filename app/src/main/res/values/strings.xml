@@ -28,6 +28,6 @@
     <string name="label_type_of_alert">Type of alert:</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="approve">Approve?</string>
-    <string name="yes">Yes</string>
+    <string name="approve">If none of the above match your alert, submit a new one.</string>
+    <string name="yes">Submit New Alert</string>
 </resources>

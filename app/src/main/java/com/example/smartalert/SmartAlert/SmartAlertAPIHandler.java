@@ -301,9 +301,6 @@ public class SmartAlertAPIHandler
                                     // initialize json object.
                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                                    if (!jsonObject.getString("approvedByUserId").equals("null"))
-                                        continue;
-
                                     View cardView = inflater.inflate(R.layout.admin_card, null);
 
                                     // initialize card view views.
@@ -316,6 +313,12 @@ public class SmartAlertAPIHandler
                                     Button reject = cardView.findViewById(R.id.ButtonReject_ADMIN);
 
                                     String id = jsonObject.getString("id");
+
+                                    if (!jsonObject.getString("approvedByUserId").equals("null"))
+                                    {
+                                        approve.setVisibility(View.GONE);
+                                        reject.setVisibility(View.GONE);
+                                    }
 
                                     approve.setOnClickListener(new View.OnClickListener()
                                     {
@@ -494,7 +497,27 @@ public class SmartAlertAPIHandler
         requestQueue.add(request);
     }
 
-    public void ConfirmCloseEvents(ProgressBar progressBar)
+    private void SendVote(String id)
+    {
+        String url = URL + "events/" + id + "/vote";
+
+        StringRequest request = new StringRequest(Request.Method.GET, url, null, null)
+        {
+            @Override
+            public HashMap<String, String> getHeaders()
+            {
+                HashMap<String, String> headers = new HashMap<>();
+                System.out.println(_token);
+                headers.put("Authorization", "Bearer " + _token);
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+
+        requestQueue.add(request);
+    }
+
+    public void ConfirmCloseEvents(ProgressBar progressBar, LayoutInflater inflater, LinearLayout layout)
     {
         String url = URL + "events/close?longitude=" + longitude + "&latitude=" + latitude;
 
@@ -504,6 +527,58 @@ public class SmartAlertAPIHandler
             public void onResponse(String response)
             {
                 progressBar.setVisibility(View.GONE);
+
+                try
+                {
+                    JSONArray jsonArray = new JSONArray(response);
+                    if (jsonArray.length() == 0)
+                    {
+                        System.out.println("Got Empty Array.");
+                        return;
+                    }
+
+                    for (int i = 0; i < jsonArray.length(); i++)
+                    {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                        if (!jsonObject.getString("approvedByUserId").equals("null"))
+                            continue;
+
+                        View cardView = inflater.inflate(R.layout.approve_card, null);
+
+                        TextView title = cardView.findViewById(R.id.TextViewTitle_APPROVE);
+                        TextView description = cardView.findViewById(R.id.TextViewDescription_APPROVE);
+                        TextView date = cardView.findViewById(R.id.TextViewDate_APPROVE);
+                        TextView votes = cardView.findViewById(R.id.TextViewVotes_APPROVE);
+
+                        Button vote = cardView.findViewById(R.id.ButtonApprove_APPROVE);
+
+                        String id = jsonObject.getString("id");
+
+                        vote.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                SendVote(id);
+                            }
+                        });
+
+                        title.setText(jsonObject.getString("title"));
+                        description.setText(jsonObject.getString("title"));
+                        date.setText(jsonObject.getString("createdAtReadable"));
+
+                        String voteCount = jsonObject.getJSONArray("votedByUsers").length() + " Votes";
+                        votes.setText(voteCount);
+
+                        layout.addView(cardView);
+                    }
+                }
+                catch (Exception e)
+                {
+                    return;
+                }
+
             }
         }, null)
         {
