@@ -27,13 +27,14 @@ public class approve extends AppCompatActivity
 
         // set the button.
         buttonApprove = findViewById(R.id.button_approve);
+        ProgressBar progressBar = findViewById(R.id.progressBar);
 
         // set the shared preferences.
         SharedPreferences SP = getSharedPreferences("AlertData", MODE_PRIVATE);
         Description = SP.getString("Description", "");
         Type = SP.getString("Type", "");
 
-        //SmartAlertAPIHandler.getInstance(this).ConfirmCloseEvents();
+        SmartAlertAPIHandler.getInstance(this).ConfirmCloseEvents(progressBar);
     }
 }
 

@@ -1,5 +1,6 @@
 package com.example.smartalert;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -11,6 +12,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -57,7 +59,8 @@ public class login extends AppCompatActivity {
     double latitude;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         // start activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
@@ -69,6 +72,13 @@ public class login extends AppCompatActivity {
         } else {
             // otherwise set location.
             SetLocation();
+        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // request location if not.
+            askNotificationPermission();
+        } else {
+
         }
 
         // hide action support bar
@@ -174,6 +184,33 @@ public class login extends AppCompatActivity {
         System.out.println(getString(R.string.warning_password));
     }
 
+    // Declare the launcher at the top of your Activity/Fragment:
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted ->
+            {
+                if (isGranted)
+                {
+                    // FCM SDK (and your app) can post notifications.
+                } else
+                {
+                    // TODO: Inform user that that your app will not show notifications.
+                }
+            });
 
+    private void askNotificationPermission() {
+        // This is only necessary for API level >= 33 (TIRAMISU)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+        {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_BOOT_COMPLETED) == PackageManager.PERMISSION_GRANTED)
+            {
+                // FCM SDK (and your app) can post notifications.
+            }
+            else
+            {
+                // Directly ask for the permission
+                requestPermissionLauncher.launch(Manifest.permission.RECEIVE_BOOT_COMPLETED);
+            }
+        }
+    }
 
 }

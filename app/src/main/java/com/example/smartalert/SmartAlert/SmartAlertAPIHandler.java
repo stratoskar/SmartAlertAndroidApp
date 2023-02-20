@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,7 +44,7 @@ import java.util.HashMap;
 public class SmartAlertAPIHandler
 {
     private static final String URL = "https://us-central1-smartalertapi.cloudfunctions.net/api/";
-    private String _token;
+    private static String _token;
     private static SmartAlertAPIHandler instance;
     private final RequestQueue requestQueue;
     private final FirebaseAuth mAuth;
@@ -53,12 +54,40 @@ public class SmartAlertAPIHandler
     private String firstname;
     private String lastname;
     private boolean isAdmin;
+    private FirebaseMessaging firebaseMessaging;
+    private static String _fcmToken;
 
 
     private SmartAlertAPIHandler(Context context)
     {
+        // set request queue and mAuth singleton
         requestQueue = Volley.newRequestQueue(context.getApplicationContext());
         mAuth = FirebaseAuth.getInstance();
+
+        // set singleton for fcm
+        firebaseMessaging = FirebaseMessaging.getInstance();
+
+        firebaseMessaging.getToken().addOnCompleteListener(new OnCompleteListener<String>()
+        {
+            @Override
+            public void onComplete(@NonNull Task<String> task)
+            {
+                if (!task.isSuccessful())
+                {
+                    System.out.println("Failed to load FCM token! User won't receive notifications.");
+                    return;
+                }
+
+                _fcmToken = task.getResult();
+
+                firebaseMessaging.subscribeToTopic("alerts").addOnCompleteListener(task1 -> {
+                    if (!task1.isSuccessful())
+                        System.out.println("Task was denied!");
+                    else
+                        System.out.println("Subscription successful.");
+                });
+            }
+        });
     }
 
     /**
@@ -111,7 +140,7 @@ public class SmartAlertAPIHandler
             @Override
             public byte[] getBody()
             {
-                String body = String.format("{\"firstName\": \"%s\", \"lastName\": \"%s\"}", firstname, lastname);
+                String body = String.format("{\"firstName\": \"%s\", \"lastName\": \"%s\", \"fcmToken\": \"%s\"}", firstname, lastname, _fcmToken);
 
                 try
                 {
@@ -404,7 +433,7 @@ public class SmartAlertAPIHandler
         requestQueue.add(request);
     }
 
-    public void ConfirmCloseEvents(float longitude, float latitude, ProgressBar progressBar)
+    public void ConfirmCloseEvents(ProgressBar progressBar)
     {
         String url = URL + "events/close?longitude=" + longitude + "&latitude=" + latitude;
 
