@@ -174,14 +174,13 @@ public class login extends AppCompatActivity {
         Locale locale = new Locale((view.getId() == R.id.ImageViewEN_LOGIN) ? "en" : "el");
         Locale.setDefault(locale);
 
-        Resources resources = getApplicationContext().getResources();
+        Resources resources = getResources();
         Configuration configuration = resources.getConfiguration();
 
         configuration.setLocale(locale);
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+
         recreate();
-        System.out.println(locale.toString());
-        System.out.println(getString(R.string.warning_password));
     }
 
     // Declare the launcher at the top of your Activity/Fragment:

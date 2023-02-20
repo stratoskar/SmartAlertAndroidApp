@@ -7,6 +7,8 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -18,6 +20,8 @@ import android.widget.Toast;
 import com.example.smartalert.SmartAlert.SmartAlertAPIHandler;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Locale;
 
 public class Register extends AppCompatActivity
 {
@@ -132,5 +136,19 @@ public class Register extends AppCompatActivity
     {
         Intent intent = new Intent(this,login.class);
         startActivity(intent);
+    }
+
+    public void ChangeLocale(View view)
+    {
+        Locale locale = new Locale((view.getId() == R.id.ImageViewEN_REGISTER) ? "en" : "el");
+        Locale.setDefault(locale);
+
+        Resources resources = getResources();
+        Configuration configuration = resources.getConfiguration();
+
+        configuration.setLocale(locale);
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+
+        recreate();
     }
 }

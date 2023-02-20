@@ -24,7 +24,7 @@
     <string name="label_description">Περιγραφή:</string>
     <string name="label_type_of_alert">Τύπος Περιστατικού:</string>
     <string name="approve">Αν κανένα από τα παραπάνω συμβάντα δεν είναι το δικό σας, φτιάξτε καινούργιο.</string>
-    <string name="yes">Υποβολή Νέου Περιστατικού</string>
+    <string name="yes">ΥΠΟΒΟΛΗ ΝΕΟΥ</string>
     <string name="toast_already_voted">Έχετε ήδη ψηφίσει αυτό το περιστατικό.</string>
     <string name="toast_successfully_voted">Ψηφίσατε επιτυχώς αυτό το περιστατικό.</string>
 </resources>
