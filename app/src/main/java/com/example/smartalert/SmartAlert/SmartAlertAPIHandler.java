@@ -105,6 +105,65 @@ public class SmartAlertAPIHandler
         return instance;
     }
 
+    public void SendUnapprovedAlert(String type, String description)
+    {
+        int gravity;
+
+        switch (type)
+        {
+            case "Fire":
+                gravity = 5;
+                break;
+            case "Flood":
+                gravity = 4;
+                break;
+            case "Earthquake":
+                gravity = 3;
+                break;
+            case "Strong Wind":
+                gravity = 2;
+                break;
+            default:
+                gravity = 1;
+                break;
+        }
+
+        String url = URL + "events";
+
+        StringRequest request = new StringRequest(Request.Method.POST, url, null, null)
+        {
+            // These are the Headers.
+            // Headers help authenticate users through tokens without having to type their password every single time.
+            @Override
+            public HashMap<String, String> getHeaders()
+            {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + _token);
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+
+            // The backend module gets responses with JSON Body
+            // our previously set body here is set.
+            @Override
+            public byte[] getBody()
+            {
+                String body = String.format("{\"title\": \"%s\", \"description\": \"%s\", \"latitude\": %f, \"longitude\": %f, \"gravity\": %d}", type, description, latitude, longitude, gravity);
+
+                try
+                {
+                    return body == null ? null : body.getBytes("utf-8");
+                }
+                catch (UnsupportedEncodingException e)
+                {
+                    return null;
+                }
+            }
+        };
+
+        requestQueue.add(request);
+    }
+
     private void SetFirstNameAndLastName(String firstname, String lastname, Activity activity, ProgressBar progressBar, double latitude, double longitude)
     {
         // URL ENDPOINT. Here is all the backend magic. This is where we retrieve all users and alerts.
@@ -232,6 +291,8 @@ public class SmartAlertAPIHandler
                                 System.out.println("Got an empty array.");
                                 return;
                             }
+
+
 
                             if (isAdmin)
                             {

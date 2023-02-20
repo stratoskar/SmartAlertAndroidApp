@@ -1,6 +1,7 @@
 package com.example.smartalert;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -17,7 +18,6 @@ public class approve extends AppCompatActivity
     String Description;
     String Type;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -29,12 +29,19 @@ public class approve extends AppCompatActivity
         buttonApprove = findViewById(R.id.button_approve);
         ProgressBar progressBar = findViewById(R.id.progressBar);
 
+        buttonApprove = findViewById(R.id.button_approve);
+
         // set the shared preferences.
         SharedPreferences SP = getSharedPreferences("AlertData", MODE_PRIVATE);
         Description = SP.getString("Description", "");
         Type = SP.getString("Type", "");
 
         SmartAlertAPIHandler.getInstance(this).ConfirmCloseEvents(progressBar);
+    }
+
+    public void SendAlert(View v)
+    {
+        SmartAlertAPIHandler.getInstance(this).SendUnapprovedAlert(Type, Description);
     }
 }
 
