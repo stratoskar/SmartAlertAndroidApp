@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
@@ -34,7 +35,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * <h1>Handles all API Requests.</h1>
@@ -298,15 +301,13 @@ public class SmartAlertAPIHandler
 
                             if (isAdmin)
                             {
+                                List<View> approvable_card_views = new ArrayList<>();
+                                List<View> normal_card_views = new ArrayList<>();
+
                                 for (int i = 0; i < jsonArray.length(); i++)
                                 {
                                     // initialize json object.
                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                                    if (!jsonObject.getString("approvedByUserId").equals("null"))
-                                    {
-                                        continue;
-                                    }
 
                                     View cardView = inflater.inflate(R.layout.admin_card, null);
 
@@ -320,8 +321,6 @@ public class SmartAlertAPIHandler
                                     Button reject = cardView.findViewById(R.id.ButtonReject_ADMIN);
 
                                     String id = jsonObject.getString("id");
-
-
 
                                     approve.setOnClickListener(new View.OnClickListener()
                                     {
@@ -353,8 +352,22 @@ public class SmartAlertAPIHandler
                                     // display danger
                                     danger.setText(String.format("%f%%", jsonObject.getDouble("danger")));
 
-                                    layout.addView(cardView);
+                                    // if the user is an admin set them to be visible but not clickable.
+                                    if (!jsonObject.getString("approvedByUserId").equals("null"))
+                                    {
+                                        approve.setVisibility(View.GONE);
+                                        reject.setVisibility(View.GONE);
+                                        normal_card_views.add(cardView);
+                                    }
+                                    else
+                                        approvable_card_views.add(cardView);
                                 }
+
+                                for (View v : approvable_card_views)
+                                    layout.addView(v);
+
+                                for (View v : normal_card_views)
+                                    layout.addView(v);
 
                             }
                             else
