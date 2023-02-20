@@ -27,4 +27,5 @@
     <string name="yes">ΥΠΟΒΟΛΗ ΝΕΟΥ</string>
     <string name="toast_already_voted">Έχετε ήδη ψηφίσει αυτό το περιστατικό.</string>
     <string name="toast_successfully_voted">Ψηφίσατε επιτυχώς αυτό το περιστατικό.</string>
+    <string name="toast_successfully_reported_incident">Υποβάλατε επιτυχώς το περιστατικό.</string>
 </resources>

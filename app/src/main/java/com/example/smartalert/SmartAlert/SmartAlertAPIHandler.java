@@ -110,7 +110,7 @@ public class SmartAlertAPIHandler
         return instance;
     }
 
-    public void SendUnapprovedAlert(String type, String description)
+    public void SendUnapprovedAlert(String type, String description, Activity activity)
     {
         int gravity;
 
@@ -135,7 +135,14 @@ public class SmartAlertAPIHandler
 
         String url = URL + "events";
 
-        StringRequest request = new StringRequest(Request.Method.POST, url, null, null)
+        StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
+
+            Toast.makeText(activity, activity.getString(R.string.toast_successfully_reported_incident), Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(activity, ViewAlerts.class);
+            activity.startActivity(intent);
+            activity.finish();
+        }, null)
         {
             // These are the Headers.
             // Headers help authenticate users through tokens without having to type their password every single time.

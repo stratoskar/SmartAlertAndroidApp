@@ -44,7 +44,7 @@ public class approve extends AppCompatActivity
 
     public void SendAlert(View v)
     {
-        SmartAlertAPIHandler.getInstance(this).SendUnapprovedAlert(Type, Description);
+        SmartAlertAPIHandler.getInstance(this).SendUnapprovedAlert(Type, Description, this);
     }
 }
 
