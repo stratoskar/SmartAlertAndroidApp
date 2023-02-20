@@ -9,7 +9,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff">
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_corners">
 
         <TextView
             android:id="@+id/textview_reportIncident"
@@ -94,7 +95,7 @@
             android:layout_marginTop="56dp"
             android:layout_marginEnd="242dp"
             android:width="73dp"
-            android:background="#000000"
+            android:background="@drawable/background4"
             android:text="@string/label_description"
             android:textColor="#FFFFFF"
             android:textSize="15sp"
@@ -114,7 +115,7 @@
             android:editable="true"
             android:ems="10"
             android:hint="@string/please_describe_the_insident"
-            android:inputType="textPersonName"
+            android:inputType="textShortMessage|text"
             android:textAlignment="viewStart"
             android:textColor="@color/black"
             android:textColorHint="#000000"
@@ -133,7 +134,7 @@
             android:layout_marginTop="52dp"
             android:layout_marginEnd="246dp"
             android:width="73dp"
-            android:background="#000000"
+            android:background="@drawable/background4"
             android:text="@string/label_type_of_alert"
             android:textColor="#ffffff"
             android:textSize="15sp"
@@ -167,7 +168,7 @@
             android:layout_marginTop="81dp"
             android:layout_marginEnd="82dp"
             android:width="248dp"
-            android:backgroundTint="#7d5260"
+            android:backgroundTint="@color/black"
             android:text="Report incident"
             android:textColor="#ffffff"
             android:textSize="15sp"

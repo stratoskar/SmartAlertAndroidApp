@@ -25,4 +25,6 @@
     <string name="label_type_of_alert">Type of alert:</string>
     <string name="approve">If none of the above match your alert, submit a new one.</string>
     <string name="yes">Submit New Alert</string>
+    <string name="toast_already_voted">You have already voted this incident.</string>
+    <string name="toast_successfully_voted">You have successfully voted this incident.</string>
 </resources>

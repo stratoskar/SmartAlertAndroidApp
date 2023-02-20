@@ -12,10 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.smartalert.R;
@@ -497,11 +499,13 @@ public class SmartAlertAPIHandler
         requestQueue.add(request);
     }
 
-    private void SendVote(String id)
+    private void SendVote(String id, Context context)
     {
         String url = URL + "events/" + id + "/vote";
 
-        StringRequest request = new StringRequest(Request.Method.GET, url, null, null)
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                response -> Toast.makeText(context, context.getString(R.string.toast_successfully_voted), Toast.LENGTH_LONG).show(),
+                error -> Toast.makeText(context, context.getString(R.string.toast_already_voted), Toast.LENGTH_LONG).show())
         {
             @Override
             public HashMap<String, String> getHeaders()
@@ -517,7 +521,7 @@ public class SmartAlertAPIHandler
         requestQueue.add(request);
     }
 
-    public void ConfirmCloseEvents(ProgressBar progressBar, LayoutInflater inflater, LinearLayout layout)
+    public void ConfirmCloseEvents(ProgressBar progressBar, LayoutInflater inflater, LinearLayout layout, Context context)
     {
         String url = URL + "events/close?longitude=" + longitude + "&latitude=" + latitude;
 
@@ -560,12 +564,12 @@ public class SmartAlertAPIHandler
                             @Override
                             public void onClick(View v)
                             {
-                                SendVote(id);
+                                SendVote(id, context);
                             }
                         });
 
                         title.setText(jsonObject.getString("title"));
-                        description.setText(jsonObject.getString("title"));
+                        description.setText(jsonObject.getString("description"));
                         date.setText(jsonObject.getString("createdAtReadable"));
 
                         String voteCount = jsonObject.getJSONArray("votedByUsers").length() + " Votes";
@@ -684,5 +688,19 @@ public class SmartAlertAPIHandler
                 Toast.makeText(activity, activity.getString(R.string.toast_email_already_taken), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public void Logout()
+    {
+        _token = null;
+        instance = null;
+        User = null;
+        latitude = 0f;
+        longitude = 0f;
+        firstname = "";
+        lastname = "";
+        isAdmin = false;
+        firebaseMessaging = null;
+        _fcmToken = "";
     }
 }

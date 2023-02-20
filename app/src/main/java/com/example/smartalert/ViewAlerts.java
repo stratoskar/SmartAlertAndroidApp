@@ -6,6 +6,8 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
+import com.example.smartalert.SmartAlert.SmartAlertAPIHandler;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ViewAlerts extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
@@ -35,8 +37,10 @@ public class ViewAlerts extends AppCompatActivity implements BottomNavigationVie
                 fragment = new fragment_report();
                 break;
             case R.id.logout:
+                SmartAlertAPIHandler.getInstance(this).Logout();
                 Intent intent = new Intent(this,login.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.alerts:
                 fragment = new fragment_alerts();

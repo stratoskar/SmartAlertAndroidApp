@@ -5,68 +5,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/LinearLayout_approve_cards"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ffffff">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/rounded_corners">
 
-        <LinearLayout
-            android:id="@+id/LinearLayout_approve_cards"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/button_approve"
-            android:layout_width="248dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="82dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="81dp"
-            android:width="248dp"
-            android:backgroundTint="#7d5260"
-            android:onClick="SendAlert"
-            android:text="@string/yes"
-            android:textColor="#ffffff"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textview_approveText"
-            app:layout_constraintVertical_bias="1.0" />
+            <Button
+                android:id="@+id/button_approve"
+                android:layout_width="248dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="82dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="81dp"
+                android:width="248dp"
+                android:backgroundTint="@color/design_default_color_error"
+                android:onClick="SendAlert"
+                android:text="@string/yes"
+                android:textColor="#ffffff"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textview_approveText"
+                app:layout_constraintVertical_bias="1.0" />
 
-        <TextView
-            android:id="@+id/textview_approveText"
-            android:layout_width="269dp"
-            android:layout_height="58dp"
-            android:layout_marginStart="82dp"
-            android:layout_marginTop="44dp"
-            android:layout_marginEnd="218dp"
-            android:width="73dp"
-            android:background="#000000"
-            android:text="@string/approve"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/LinearLayout_approve_cards"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.069"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textview_approveText"
+                android:layout_width="269dp"
+                android:layout_height="58dp"
+                android:layout_marginStart="82dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="218dp"
+                android:width="73dp"
+                android:text="@string/approve"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.069"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.204" />
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.204" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+
 </ScrollView>

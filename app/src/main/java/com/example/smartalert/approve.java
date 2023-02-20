@@ -39,7 +39,7 @@ public class approve extends AppCompatActivity
 
         LinearLayout layout = findViewById(R.id.LinearLayout_approve_cards);
 
-       SmartAlertAPIHandler.getInstance(this).ConfirmCloseEvents(progressBar, getLayoutInflater(), layout);
+       SmartAlertAPIHandler.getInstance(this).ConfirmCloseEvents(progressBar, getLayoutInflater(), layout, this);
     }
 
     public void SendAlert(View v)
